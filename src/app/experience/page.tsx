@@ -27,21 +27,6 @@ const Experience = () => {
     }
   };
 
-  const achievements = [
-    {
-      title: "1st Place Hackathon Winner",
-      event: "EthAtlanta",
-      date: "Oct 2021",
-      description: "Placed 1st in the Eth Atl Hackathon."
-    },
-    {
-      title: "1st Place Geek Week Top Coder Challenge Winner",
-      event: "General Motors",
-      date: "Sep 2021",
-      description: "Placed 1st in the General Motors Geek Week Top Coder Challenge"
-    }
-  ];
-
   return (
     <PageTransition>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8">
