@@ -127,7 +127,7 @@ const Testimonials = () => {
                   className="text-gray-600 italic"
                   variants={itemVariants}
                 >
-                  "{testimonial.quote}"
+                  &quot;{testimonial.quote}&quot;
                 </motion.blockquote>
               </motion.div>
             ))}
