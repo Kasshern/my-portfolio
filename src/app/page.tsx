@@ -1,103 +1,63 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React from 'react';
+import PageTransition from '../components/PageTransition';
+import { motion } from 'framer-motion';
+
+const Home = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+    <PageTransition>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
+        <motion.h1 
+          className="text-4xl md:text-6xl font-bold text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          Welcome to My Portfolio
+        </motion.h1>
+        <motion.p 
+          className="mt-4 text-xl md:text-2xl text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          AI and ML Researcher and Developer.
+        </motion.p>
+        {/* Profile image */}
+        <motion.div 
+          className="mt-8 w-64 h-64 rounded-full overflow-hidden shadow-lg border-4 border-white bg-gray-200 flex items-center justify-center"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ 
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+            delay: 0.6 
+          }}
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+          <img 
+            src="/profile.jpg" 
+            alt="Keith Salzman profile" 
+            className="object-cover w-full h-full" 
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </motion.div>
+        {/* About Me Paragraphs */}
+        <motion.div className="max-w-2xl mt-8 bg-white rounded-lg shadow-lg p-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
+          <h2 className="text-2xl font-semibold mb-4">Software Research and Development Engineer/Architect</h2>
+          <p className="text-gray-600 mb-4">
+            I am engaged in mastering blockchain development and blockchain-adjacent technologies through Solidity, Go, Javascript/Typescript, Node JS, Web3, etc. Educational Enrollments, open source community activities, and team development of smart contracts, baselining, and other blockchain related innovations. I placed 1st at the EthAtlanta Ethereum Enterprise Event Hackathon in October 2021 and GM Top Coder Challenge in September 2021.
+          </p>
+          <p className="text-gray-600 mb-4">
+            I have traditionally served as a full-stack developer working primarily with React, Redux, Java, Spring, NodeJS, Typescript, Express. I am currently serving as an SDET architecting and developing mobile, browser, and API frameworks and cases in Java.
+          </p>
+          <p className="text-gray-600">
+            I graduated from the University of Florida in 2019 with a bachelors of Science in Computer Science. I have engaged in intense studies of higher mathematics and its technological applications over the last decade and within various countries. My passion lies in innovating and implementing technologies based in world-altering ideas such as decentralization, zero-knowledge proofs, cryptography, and blockchain.
+          </p>
+        </motion.div>
+      </div>
+    </PageTransition>
   );
-}
+};
+
+export default Home;
