@@ -21,19 +21,12 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-gray-800 text-white fixed w-full z-50">
+    <nav className="bg-black/0 text-white fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo/Brand */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="text-xl font-bold">
-              Portfolio
-            </Link>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+        <div className="flex items-center h-16">
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden md:flex flex-1 justify-center">
+            <div className="flex items-baseline space-x-4">
               {navItems.map((item) => (
                 <motion.div
                   key={item.href}
@@ -42,10 +35,10 @@ const Navbar = () => {
                 >
                   <Link
                     href={item.href}
-                    className={`px-3 py-2 rounded-md text-sm font-medium ${
+                    className={`px-3 py-2 rounded-md text-lg font-bold ${
                       pathname === item.href
-                        ? 'bg-gray-900 text-white'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                        ? 'glow-pulse'
+                        : 'text-gray-300 hover:text-white'
                     }`}
                   >
                     {item.label}
@@ -55,8 +48,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile menu button - Right side */}
+          <div className="md:hidden ml-auto">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none"
@@ -112,10 +105,10 @@ const Navbar = () => {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  className={`block px-3 py-2 rounded-md text-lg font-bold ${
                     pathname === item.href
-                      ? 'bg-gray-900 text-white'
-                      : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                      ? 'glow-pulse'
+                      : 'text-gray-300 hover:text-white'
                   }`}
                   onClick={() => setIsOpen(false)}
                 >

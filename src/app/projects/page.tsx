@@ -68,7 +68,7 @@ const Projects = () => {
 
   return (
     <PageTransition>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8">
+      <div className="flex flex-col items-center justify-center min-h-screen p-8">
         <motion.div
           className="max-w-6xl w-full"
           variants={containerVariants}
@@ -76,7 +76,7 @@ const Projects = () => {
           animate="visible"
         >
           <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-center mb-12"
+            className="text-4xl md:text-5xl font-bold text-center mb-12 text-white"
             variants={projectVariants}
           >
             My Projects
@@ -86,7 +86,7 @@ const Projects = () => {
             {projects.map((project, index) => (
               <motion.div
                 key={index}
-                className="bg-white rounded-lg shadow-lg overflow-hidden"
+                className="bg-transparent rounded-lg shadow-xl overflow-hidden"
                 variants={projectVariants}
                 whileHover={{ 
                   scale: 1.02,
@@ -96,23 +96,23 @@ const Projects = () => {
               >
                 {/* Project image */}
                 {project.title.includes('Geek Week Top Coder') ? (
-                  <img src="/top_coder.png" alt="Top Coder Challenge Winner" className="h-48 w-full object-contain bg-gray-100" />
+                  <img src="/top_coder.png" alt="Top Coder Challenge Winner" className="h-48 w-full object-contain bg-transparent" />
                 ) : (
-                  <div className="h-48 bg-gray-300"></div>
+                  <div className="h-48 bg-transparent"></div>
                 )}
                 <div className="p-6">
                   <motion.h2 
-                    className="text-2xl font-semibold mb-2"
-                    whileHover={{ color: "#3B82F6" }}
+                    className="text-2xl font-semibold mb-2 text-white"
+                    whileHover={{ color: "#60A5FA" }}
                   >
                     {project.title}
                   </motion.h2>
-                  <p className="text-gray-600 mb-4">{project.description}</p>
+                  <p className="text-gray-300 mb-4">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.technologies.map((tech, techIndex) => (
                       <motion.span
                         key={techIndex}
-                        className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                        className="px-3 py-1 bg-transparent text-blue-200 rounded-full text-sm border border-blue-200"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
                       >
@@ -122,7 +122,7 @@ const Projects = () => {
                   </div>
                   <motion.a
                     href={project.link}
-                    className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                    className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >

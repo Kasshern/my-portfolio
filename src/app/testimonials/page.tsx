@@ -53,7 +53,7 @@ const Testimonials = () => {
 
   return (
     <PageTransition>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8">
+      <div className="flex flex-col items-center justify-start min-h-screen p-8">
         <motion.div
           className="max-w-4xl w-full"
           variants={containerVariants}
@@ -61,7 +61,7 @@ const Testimonials = () => {
           animate="visible"
         >
           <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-center mb-12"
+            className="text-4xl md:text-5xl font-bold text-center mb-12 text-white"
             variants={itemVariants}
           >
             Testimonials
@@ -71,7 +71,7 @@ const Testimonials = () => {
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
-                className="bg-white rounded-lg shadow-lg p-6"
+                className="bg-transparent rounded-lg shadow-xl p-6"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -92,13 +92,13 @@ const Testimonials = () => {
                   </motion.div>
                   <div>
                     <motion.h3 
-                      className="font-semibold"
+                      className="font-semibold text-white"
                       variants={itemVariants}
                     >
                       {testimonial.name}
                     </motion.h3>
                     <motion.p 
-                      className="text-gray-600 text-sm"
+                      className="text-gray-300 text-sm"
                       variants={itemVariants}
                     >
                       {testimonial.role}
@@ -124,7 +124,7 @@ const Testimonials = () => {
                 </motion.div>
 
                 <motion.blockquote 
-                  className="text-gray-600 italic"
+                  className="text-gray-300 italic"
                   variants={itemVariants}
                 >
                   &quot;{testimonial.quote}&quot;

@@ -116,7 +116,7 @@ const Skills = () => {
 
   return (
     <PageTransition>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8">
+      <div className="flex flex-col items-center justify-center min-h-screen p-8">
         <motion.div
           className="max-w-4xl w-full"
           variants={containerVariants}
@@ -131,7 +131,7 @@ const Skills = () => {
           </motion.h1>
 
           {/* AI & ML Bar Chart Section */}
-          <motion.div className="bg-white rounded-lg shadow-lg p-8 mb-8" variants={itemVariants}>
+          <motion.div className="bg-transparent rounded-lg shadow-xl p-8 mb-8" variants={itemVariants}>
             <motion.h2 className="text-2xl font-semibold mb-6" variants={itemVariants}>
               Artificial Intelligence & Machine Learning
             </motion.h2>
@@ -190,7 +190,7 @@ const Skills = () => {
             {skillCategories.map((category, index) => (
               <motion.div
                 key={index}
-                className="bg-white rounded-lg shadow-lg p-8"
+                className="bg-transparent rounded-lg shadow-xl p-8"
                 variants={itemVariants}
               >
                 <motion.h2 

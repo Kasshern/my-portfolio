@@ -53,7 +53,7 @@ const Blog = () => {
 
   return (
     <PageTransition>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8">
+      <div className="flex flex-col items-center justify-start min-h-screen p-8">
         <motion.div
           className="max-w-4xl w-full"
           variants={containerVariants}
@@ -61,7 +61,7 @@ const Blog = () => {
           animate="visible"
         >
           <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-center mb-12"
+            className="text-4xl md:text-5xl font-bold text-center mb-12 text-white"
             variants={itemVariants}
           >
             Blog
@@ -71,7 +71,7 @@ const Blog = () => {
             {blogPosts.map((post, index) => (
               <motion.article
                 key={index}
-                className="bg-white rounded-lg shadow-lg overflow-hidden"
+                className="bg-transparent rounded-lg shadow-xl overflow-hidden"
                 variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -82,32 +82,32 @@ const Blog = () => {
                     variants={itemVariants}
                   >
                     <motion.span
-                      className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                      className="px-3 py-1 bg-blue-900 text-blue-200 rounded-full text-sm"
                       whileHover={{ scale: 1.1 }}
                     >
                       {post.category}
                     </motion.span>
-                    <span className="text-gray-500 text-sm">{post.date}</span>
-                    <span className="text-gray-500 text-sm">•</span>
-                    <span className="text-gray-500 text-sm">{post.readTime}</span>
+                    <span className="text-gray-400 text-sm">{post.date}</span>
+                    <span className="text-gray-400 text-sm">•</span>
+                    <span className="text-gray-400 text-sm">{post.readTime}</span>
                   </motion.div>
 
                   <motion.h2 
-                    className="text-2xl font-bold mb-2"
+                    className="text-2xl font-bold mb-2 text-white"
                     variants={itemVariants}
                   >
                     {post.title}
                   </motion.h2>
 
                   <motion.p 
-                    className="text-gray-600 mb-4"
+                    className="text-gray-300 mb-4"
                     variants={itemVariants}
                   >
                     {post.excerpt}
                   </motion.p>
 
                   <motion.button
-                    className="text-blue-500 font-medium hover:text-blue-600"
+                    className="text-blue-400 font-medium hover:text-blue-300"
                     whileHover={{ x: 5 }}
                     whileTap={{ scale: 0.95 }}
                   >
