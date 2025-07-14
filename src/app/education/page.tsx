@@ -31,7 +31,7 @@ const Education = () => {
     <PageTransition>
       <div className="flex flex-col items-center justify-start min-h-screen p-4 pt-8">
         <motion.div
-          className="max-w-4xl w-full"
+          className="max-w-6xl w-full"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -50,26 +50,32 @@ const Education = () => {
             <motion.div variants={sectionVariants}>
               {/* Georgia Institute of Technology */}
               <div className="mb-8">
-                <h3 className="text-xl font-medium text-white">Georgia Institute of Technology</h3>
-                <p className="text-gray-300">Master of Science - MS, Artificial Intelligence</p>
-                <p className="text-gray-400">Jan 2024 - Dec 2026</p>
-                <p className="text-gray-400">Honors: Summa Cum Laude</p>
+                <h3 className="text-2xl font-bold text-white">Georgia Institute of Technology</h3>
+                <p className="text-xl text-gray-300">Master of Science - MS, Artificial Intelligence</p>
+                <p className="text-lg text-gray-400">Jan 2024 - Dec 2026</p>
+                <p className="text-lg text-gray-400">Honors: Summa Cum Laude</p>
               </div>
               {/* University of Florida */}
               <div className="mb-8">
-                <h3 className="text-xl font-medium text-white">University of Florida</h3>
-                <p className="text-gray-300">Bachelor of Science - BS, Computer Science</p>
-                <p className="text-gray-400">2017 - 2019</p>
-                <p className="text-gray-400">Grade: 3.9 GPA</p>
-                <p className="text-gray-400">Honors: Summa Cum Laude</p>
+                <h3 className="text-2xl font-bold text-white">University of Florida</h3>
+                <p className="text-xl text-gray-300">Bachelor of Science - BS, Computer Science</p>
+                <p className="text-lg text-gray-400">2017 - 2019</p>
+                <p className="text-lg text-gray-400">Grade: 3.9 GPA</p>
+                <p className="text-lg text-gray-400">Honors: Summa Cum Laude</p>
               </div>
               {/* Polk State College */}
               <div className="mb-8">
-                <h3 className="text-xl font-medium text-white">Polk State College</h3>
-                <p className="text-gray-300">Associate of Science - AS, Biology/Biological Sciences, General</p>
-                <p className="text-gray-400">2007 - 2010</p>
-                <p className="text-gray-400">Grade: 3.8 GPA</p>
-                <p className="text-gray-400">Honors: Magna Cum Laude</p>
+                <h3 className="text-2xl font-bold text-white">Polk State College</h3>
+                <p className="text-xl text-gray-300">Associate of Science - AS, Biology/Biological Sciences, General</p>
+                <p className="text-lg text-gray-400">2007 - 2010</p>
+                <p className="text-lg text-gray-400">Grade: 3.8 GPA</p>
+                <p className="text-lg text-gray-400">Honors: Magna Cum Laude</p>
+              </div>
+              {/* University of Texas - Planned PhD */}
+              <div className="mb-8">
+                <h3 className="text-2xl font-bold text-white">University of Texas (Planned)</h3>
+                <p className="text-xl text-gray-300">PhD in Physics, Specializing in Quantum Physics and Computing</p>
+                <p className="text-lg text-gray-400">Expected Start: 2026</p>
               </div>
             </motion.div>
           </motion.section>

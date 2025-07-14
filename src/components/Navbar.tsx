@@ -11,13 +11,11 @@ const Navbar = () => {
 
   const navItems = [
     { href: '/', label: 'Home' },
-    { href: '/experience', label: 'Work Experience' },
+    { href: '/experience', label: 'Experience' },
     { href: '/education', label: 'Education' },
     { href: '/projects', label: 'Projects' },
     { href: '/skills', label: 'Skills' },
-    { href: '/contact', label: 'Contact' },
-    { href: '/blog', label: 'Blog' },
-    { href: '/testimonials', label: 'Testimonials' },
+    { href: '/contact', label: 'Links' },
   ];
 
   return (

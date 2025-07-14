@@ -31,7 +31,7 @@ const Experience = () => {
     <PageTransition>
       <div className="flex flex-col items-center justify-center min-h-screen p-8">
         <motion.div
-          className="max-w-4xl w-full"
+          className="max-w-6xl w-full"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -47,95 +47,108 @@ const Experience = () => {
             variants={sectionVariants}
             whileHover={{ scale: 1.01 }}
           >
-            <motion.div variants={sectionVariants}>
-              {/* ConsenSys Mesh */}
-              <motion.div className="mb-8" whileHover={{ x: 10 }}>
-                <h3 className="text-xl font-medium text-white">Zero-Knowledge and Blockchain Engineering Lead</h3>
-                <p className="text-gray-300 font-semibold">ConsenSys Mesh · Full-time</p>
-                <p className="text-gray-400">Feb 2022 - Present · 3 yrs 3 mos</p>
-                <p className="text-gray-400">United States</p>
-                <p className="mt-2 text-gray-300">
-                  Skills: Solidity · C++ · Rust (Programming Language) · Pandas (Software) · Python (Programming Language) · Go (Programming Language)
-                </p>
-              </motion.div>
-              {/* General Motors */}
-              <motion.div className="mb-8" whileHover={{ x: 10 }}>
-                <h3 className="text-xl font-medium text-white">Software Development Engineer</h3>
-                <p className="text-gray-300 font-semibold">General Motors · Full-time</p>
-                <p className="text-gray-400">Oct 2020 - Feb 2022 · 1 yr 5 mos</p>
-                <p className="text-gray-400">Austin, Texas, United States</p>
-                <ul className="list-disc list-inside mt-2 text-gray-300 space-y-1">
-                  <li>Architected Java Perfecto Mobile Test Automation Framework with Selenium and Appium that runs automated test scenarios on actual Mobile devices in the Perfecto Cloud</li>
-                  <li>Architected Multi-Engine Concurrent Hybrid Test Automation framework capable of running Selenium UI, Perfecto Native Application, and Browser Mobile Emulation tests Concurrently</li>
-                  <li>Developed code for hundreds of automated tests interacting with multiple GM website UI, API services, iOS & Android native applications</li>
-                  <li>Created standards for optimized automation code and practices that simultaneously increase robustness, longevity, time complexity and space complexity.</li>
-                  <li>Aided in CI/CD pipeline integration of automation repositories in order to achieve CT of multiple GM UI, API, and Native Apps</li>
-                </ul>
-                <p className="mt-2 text-gray-300">
-                  Skills: C++
-                </p>
-              </motion.div>
-              {/* Revature */}
-              <motion.div className="mb-8" whileHover={{ x: 10 }}>
-                <h3 className="text-xl font-medium text-white">Full Stack Software Engineer</h3>
-                <p className="text-gray-300 font-semibold">Revature · Full-time</p>
-                <p className="text-gray-400">Jan 2020 - Oct 2020 · 10 mos</p>
-                <p className="text-gray-400">Remote</p>
-                <ul className="list-disc list-inside mt-2 text-gray-300 space-y-1">
-                  <li>Programmed various server-side web technologies in JavaScript, Typescript, and NodeJS.</li>
-                  <li>Implemented scalable server-side frameworks utilizing Express, Ajax technologies, Axios, and RESTful principles.</li>
-                  <li>Applied Spring Framework advantages to create and launch web applications in Java.</li>
-                  <li>Utilized Hibernate, RabbitMQ, Feign Client, Circuit Breaker Protocols, etc. in Java in order to facilitate communication with web-servers</li>
-                  <li>Effectuated potent client-side single-page applications through React.</li>
-                  <li>Established React-Redux application providing the consistent and accessible centralized state through adherence to flux-design-pattern principles.</li>
-                  <li>Designed HTML, CSS, Bootstrap, and Material UI enhanced client-side UI and UX.</li>
-                  <li>Constructed databases and queries with PostgreSQL via Amazon Web Services designed for communication to servers.</li>
-                  <li>Ensured application unit accuracy through black-box unit testing with Jest, Enzyme, and JUnit.</li>
-                </ul>
-              </motion.div>
-              {/* Bright Scholar */}
-              <motion.div className="mb-8" whileHover={{ x: 10 }}>
-                <h3 className="text-xl font-medium text-white">Full Stack Software Engineer</h3>
-                <p className="text-gray-300 font-semibold">Bright Scholar Education Holdings Ltd. · Full-time</p>
-                <p className="text-gray-400">Jan 2018 - Jan 2020 · 2 yrs 1 mo</p>
-                <p className="text-gray-400">Wuhan, Hubei, China</p>
-                <ul className="list-disc list-inside mt-2 text-gray-300 space-y-1">
-                  <li>Designed and implemented scalable server-side web technologies and frameworks with JavaScript, Typescript, Express, NodeJS, Ajax, Axios, etc.</li>
-                  <li>Designed and implemented scalable server-side web technologies and frameworks with Java, Spring, Hibernate, RabbitMQ, Feign, etc.</li>
-                  <li>Designed and Created Mobile-first Single page applications in React and Redux using the Flux-Design-Pattern principles.</li>
-                  <li>Designed HTML, CSS, Bootstrap, and Material UI enhanced client-side UI and UX.</li>
-                  <li>Constructed databases and queries with PostgreSQL via Amazon Web Services designed for communication to servers.</li>
-                  <li>Ensured application unit accuracy through black-box unit testing with Jest, Enzyme, and JUnit.</li>
-                </ul>
-              </motion.div>
-              {/* San New School */}
-              <motion.div className="mb-8" whileHover={{ x: 10 }}>
-                <h3 className="text-xl font-medium text-white">Computer and Mathematics Department Manager</h3>
-                <p className="text-gray-300 font-semibold">San New School · Full-time</p>
-                <p className="text-gray-400">Jan 2016 - Jan 2018 · 2 yrs 1 mo</p>
-                <p className="text-gray-400">Wuhan, Hubei, China</p>
-                <ul className="list-disc list-inside mt-2 text-gray-300 space-y-1">
-                  <li>Managed professional team of 15+ individuals.</li>
-                  <li>Oversaw all departmental affair planning and execution.</li>
-                  <li>Facilitated ongoing development workshops for employees.</li>
-                  <li>Developed and maintained school network, website and online tools.</li>
-                  <li>Taught AP Computer Science, AP Calculus, AP Statistics, etc.</li>
-                </ul>
-              </motion.div>
-              {/* Kaplan Higher Education */}
-              <motion.div className="mb-8" whileHover={{ x: 10 }}>
-                <h3 className="text-xl font-medium text-white">Science, Technology, Engineering and Mathematics Department Lead</h3>
-                <p className="text-gray-300 font-semibold">Kaplan Higher Education - Wuhan No. 6 High School · Full-time</p>
-                <p className="text-gray-400">Jan 2011 - Jan 2016 · 5 yrs 1 mo</p>
-                <p className="text-gray-400">Wuhan, Hubei, China</p>
-              </motion.div>
-              {/* Polk State College */}
-              <motion.div className="mb-8" whileHover={{ x: 10 }}>
-                <h3 className="text-xl font-medium text-white">Math and Science Tutor</h3>
-                <p className="text-gray-300 font-semibold">Polk State College · Full-time</p>
-                <p className="text-gray-400">Feb 2007 - Jan 2011 · 4 yrs</p>
-                <p className="text-gray-400">Lakeland, Florida, United States</p>
-              </motion.div>
+            {/* ConsenSys Mesh - Technical Director */}
+            <motion.div className="mb-8" whileHover={{ x: 10 }}>
+              <h3 className="text-2xl font-bold text-white">Technical Director</h3>
+              <p className="text-xl text-gray-300 font-semibold">ConsenSys Mesh · Full-time</p>
+              <p className="text-lg text-gray-400">Mar 2024 - Present</p>
+              <p className="text-lg text-gray-400">Austin, Texas, United States</p>
+              <ul className="list-disc list-inside mt-2 text-gray-300 space-y-2 hanging-indent text-xl">
+                <li>Lead strategic technical direction across Web3, Zero-Knowledge, and AI initiatives, aligning innovation with product roadmaps, startup needs, and investment opportunities.</li>
+                <li>Manage cross-functional R&D teams, setting technical standards and best practices for scalable, privacy-preserving, and decentralized systems.</li>
+                <li>Drive innovation through research partnerships and contributions to open-source ecosystems in ZK, ML, and blockchain infrastructure.</li>
+                <li>Evaluate and integrate emerging cryptographic, AI/ML, and decentralized protocols across Mesh portfolio companies.</li>
+                <li>Mentor senior engineers and technical leads on advanced blockchain architectures, ZK implementation patterns, and decentralized coordination frameworks.</li>
+                <li>Represent ConsenSys Mesh at industry conferences and technical working groups, shaping the future of trustless technologies.</li>
+                <li>Oversee all technical operations for the TachyonX accelerator program, supporting early-stage startups from ideation through launch.</li>
+              </ul>
+            </motion.div>
+            {/* ConsenSys Mesh - R&D Lead Engineer */}
+            <motion.div className="mb-8" whileHover={{ x: 10 }}>
+              <h3 className="text-2xl font-bold text-white">Research & Development Lead Engineer</h3>
+              <p className="text-xl text-gray-300 font-semibold">ConsenSys Mesh · Full-time</p>
+              <p className="text-lg text-gray-400">Feb 2022 - Mar 2024</p>
+              <p className="text-lg text-gray-400">Austin, Texas, United States</p>
+              <ul className="list-disc list-inside mt-2 text-gray-300 space-y-2 hanging-indent text-xl">
+                <li>Advanced applied research and contributed to codebases—both open-source and private—at the intersection of ZK, decentralized systems, and machine learning.</li>
+                <li>Developed interoperable standards and prototype implementations spanning MPC, ZK cryptography, ML pipelines, and decentralized smart contracts.</li>
+                <li>Led cross-functional R&D efforts, mentoring engineers and driving technical strategy across ZK, blockchain, and ML initiatives.</li>
+                <li>Architected end-to-end systems combining Zero-Knowledge proof architectures with modular smart contracts for confidential computation and on-chain coordination.</li>
+                <li>Presented at international conventions on ZK, MPC, and Decentralized technologies.</li>
+              </ul>
+            </motion.div>
+            {/* General Motors */}
+            <motion.div className="mb-8" whileHover={{ x: 10 }}>
+              <h3 className="text-2xl font-bold text-white">Software Engineer</h3>
+              <p className="text-xl text-gray-300 font-semibold">General Motors · Full-time</p>
+              <p className="text-lg text-gray-400">Oct 2020 - Feb 2022</p>
+              <p className="text-lg text-gray-400">Austin, Texas, United States</p>
+              <ul className="list-disc list-inside mt-2 text-gray-300 space-y-2 hanging-indent text-xl">
+                <li>Architected cloud-based mobile test automation framework in Selenium and Appium.</li>
+                <li>Designed multi-engine framework for simultaneous UI, native, and mobile testing.</li>
+                <li>Developed automated tests across websites, APIs, and iOS/Android applications.</li>
+                <li>Integrated test automation into CI/CD pipelines for continuous testing cross-platform.</li>
+                <li>Collaborated across multiple agile teams and projects simultaneously.</li>
+                <li>Established standards of test robustness, maintainability, and performance efficiency.</li>
+              </ul>
+            </motion.div>
+            {/* Revature */}
+            <motion.div className="mb-8" whileHover={{ x: 10 }}>
+              <h3 className="text-2xl font-bold text-white">Full Stack Software Developer</h3>
+              <p className="text-xl text-gray-300 font-semibold">Revature · Full-time</p>
+              <p className="text-lg text-gray-400">Jan 2020 - Oct 2020</p>
+              <p className="text-lg text-gray-400">Tampa, Florida, United States</p>
+              <ul className="list-disc list-inside mt-2 text-gray-300 space-y-2 hanging-indent text-xl">
+                <li>Developed full-stack web applications using JS, TS, Express, Node.js, Java, Spring Framework and microservice architectures.</li>
+                <li>Built mobile-first SPAs with React-Redux following flux-design-pattern.</li>
+                <li>Deployed full-stack applications, pipelines, and database integrations on AWS.</li>
+                <li>Designed responsive UI/UX with HTML, CSS, Bootstrap, and Material UI, etc.</li>
+                <li>Established automated testing frameworks in Jest, Enzyme, and JUnit.</li>
+              </ul>
+            </motion.div>
+            {/* Bright Scholar Edu. San New Institution - Department Manager */}
+            <motion.div className="mb-8" whileHover={{ x: 10 }}>
+              <h3 className="text-2xl font-bold text-white">Computer and Science Department Manager</h3>
+              <p className="text-xl text-gray-300 font-semibold">Bright Scholar Edu. San New Institution · Full-time</p>
+              <p className="text-lg text-gray-400">Jan 2018 - Jan 2020</p>
+              <p className="text-lg text-gray-400">Wuhan, China</p>
+              <ul className="list-disc list-inside mt-2 text-gray-300 space-y-2 hanging-indent text-xl">
+                <li>Managed professional team of 15+ individuals.</li>
+                <li>Developed and maintained school network, website and online tools.</li>
+                <li>Oversaw all departmental affair planning and execution.</li>
+              </ul>
+            </motion.div>
+            {/* Bright Scholar Edu. San New Institution - Lecturer */}
+            <motion.div className="mb-8" whileHover={{ x: 10 }}>
+              <h3 className="text-2xl font-bold text-white">Computer and Math Lecturer</h3>
+              <p className="text-xl text-gray-300 font-semibold">Bright Scholar Edu. San New Institution · Full-time</p>
+              <p className="text-lg text-gray-400">Jan 2016 - Jan 2020</p>
+              <p className="text-lg text-gray-400">Wuhan, China</p>
+              <ul className="list-disc list-inside mt-2 text-gray-300 space-y-2 hanging-indent text-xl">
+                <li>Taught AP Computer Science, AP Calculus, AP Statistics, etc.</li>
+                <li>Facilitated ongoing development workshops for employees.</li>
+              </ul>
+            </motion.div>
+            {/* Kaplan Higher Edu. No. 6 International Dept. - Department Manager */}
+            <motion.div className="mb-8" whileHover={{ x: 10 }}>
+              <h3 className="text-2xl font-bold text-white">Math & Science Department Manager</h3>
+              <p className="text-xl text-gray-300 font-semibold">Kaplan Higher Edu. No. 6 International Dept. · Full-time</p>
+              <p className="text-lg text-gray-400">Jan 2014 - Aug 2016</p>
+              <p className="text-lg text-gray-400">Wuhan, China</p>
+            </motion.div>
+            {/* Kaplan Higher Edu. No. 6 International Dept. - Lecturer */}
+            <motion.div className="mb-8" whileHover={{ x: 10 }}>
+              <h3 className="text-2xl font-bold text-white">Math and Science Lecturer</h3>
+              <p className="text-xl text-gray-300 font-semibold">Kaplan Higher Edu. No. 6 International Dept. · Full-time</p>
+              <p className="text-lg text-gray-400">Aug 2011 - Jan 2014</p>
+              <p className="text-lg text-gray-400">Wuhan, China</p>
+            </motion.div>
+            {/* Polk State College */}
+            <motion.div className="mb-8" whileHover={{ x: 10 }}>
+              <h3 className="text-2xl font-bold text-white">Computer, Math and Science Tutor</h3>
+              <p className="text-xl text-gray-300 font-semibold">Polk State College · Full-time</p>
+              <p className="text-lg text-gray-400">Jan 2007 - Jan 2011</p>
+              <p className="text-lg text-gray-400">Lakeland, Florida, United States</p>
             </motion.div>
           </motion.section>
         </motion.div>

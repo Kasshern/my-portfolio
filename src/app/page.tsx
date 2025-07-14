@@ -15,7 +15,7 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          Welcome to My Portfolio
+          Keith Salzman
         </motion.h1>
         <motion.p 
           className="mt-2 text-xl md:text-2xl text-center text-gray-300"
@@ -23,7 +23,7 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          AI and ML Researcher and Developer.
+          Engineer and Researcher Focused on AI/ML and Quantum Science
         </motion.p>
         
         {/* Videos and Profile Section */}
@@ -107,15 +107,8 @@ const Home = () => {
 
         {/* About Me Paragraphs */}
         <motion.div className="max-w-6xl mt-6 bg-transparent rounded-lg shadow-xl p-6" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.0 }}>
-          <h2 className="text-2xl font-semibold mb-4 text-white">Software Research and Development Engineer/Architect</h2>
-          <p className="text-gray-300 mb-4">
-            I am engaged in mastering blockchain development and blockchain-adjacent technologies through Solidity, Go, Javascript/Typescript, Node JS, Web3, etc. Educational Enrollments, open source community activities, and team development of smart contracts, baselining, and other blockchain related innovations. I placed 1st at the EthAtlanta Ethereum Enterprise Event Hackathon in October 2021 and GM Top Coder Challenge in September 2021.
-          </p>
-          <p className="text-gray-300 mb-4">
-            I have traditionally served as a full-stack developer working primarily with React, Redux, Java, Spring, NodeJS, Typescript, Express. I am currently serving as an SDET architecting and developing mobile, browser, and API frameworks and cases in Java.
-          </p>
-          <p className="text-gray-300">
-            I graduated from the University of Florida in 2019 with a bachelors of Science in Computer Science. I have engaged in intense studies of higher mathematics and its technological applications over the last decade and within various countries. My passion lies in innovating and implementing technologies based in world-altering ideas such as decentralization, zero-knowledge proofs, cryptography, and blockchain.
+          <p className="text-gray-300 text-lg whitespace-pre-line">
+            Engineer and researcher with expertise spanning AI/ML, cryptography, web2 and web3 full stack development, decentralized systems, and leadership. Currently directing cross-functional engineering teams at ConsenSys Mesh while pursuing an M.S. in AI/ML at Georgia Institute of Technology. Combines multiple sources of cutting-edge research, such as zero-knowledge cryptography, machine learning algorithms, in driving privacy-preserving technologies among others. Proven track record of architecting complex systems from concept to production, establishing technical standards, and mentoring technical teams. Experienced in leading R&D initiatives that bridge theoretical computer science with practical applications across a large breadth of web2, decentralized, AI, and enterprise systems. Passionate about pursuing and progressing the edge understanding and technological development at the intersections of artificial intelligence, quantum research, robotics, distributed systems, and secure computation that solve real-world challenges.
           </p>
         </motion.div>
       </div>
