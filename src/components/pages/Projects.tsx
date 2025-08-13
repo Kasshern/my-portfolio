@@ -1,8 +1,8 @@
 "use client";
 
 import React from 'react';
-import PageTransition from '../../components/PageTransition';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const Projects = () => {
   const containerVariants = {
@@ -67,74 +67,69 @@ const Projects = () => {
   ];
 
   return (
-    <PageTransition>
-      <div className="flex flex-col items-center justify-center min-h-screen p-8">
-        <motion.div
-          className="max-w-6xl w-full"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.h1 
-            className="text-4xl md:text-5xl font-bold text-center mb-12 text-white"
+    <motion.div
+      className="w-full"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {projects.map((project, index) => (
+          <motion.div
+            key={index}
+            className="bg-transparent rounded-lg shadow-xl overflow-hidden"
             variants={projectVariants}
+            whileHover={{ 
+              scale: 1.02,
+              transition: { duration: 0.2 }
+            }}
+            whileTap={{ scale: 0.98 }}
           >
-            My Projects
-          </motion.h1>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <motion.div
-                key={index}
-                className="bg-transparent rounded-lg shadow-xl overflow-hidden"
-                variants={projectVariants}
-                whileHover={{ 
-                  scale: 1.02,
-                  transition: { duration: 0.2 }
-                }}
-                whileTap={{ scale: 0.98 }}
+            {/* Project image */}
+            {project.title.includes('Geek Week Top Coder') ? (
+              <Image 
+                src="/top_coder.png" 
+                alt="Top Coder Challenge Winner" 
+                width={400}
+                height={192}
+                className="h-48 w-full object-contain bg-transparent" 
+              />
+            ) : (
+              <div className="h-48 bg-transparent"></div>
+            )}
+            <div className="p-6">
+              <motion.h2 
+                className="text-2xl font-semibold mb-2 text-white"
+                whileHover={{ color: "#60A5FA" }}
               >
-                {/* Project image */}
-                {project.title.includes('Geek Week Top Coder') ? (
-                  <img src="/top_coder.png" alt="Top Coder Challenge Winner" className="h-48 w-full object-contain bg-transparent" />
-                ) : (
-                  <div className="h-48 bg-transparent"></div>
-                )}
-                <div className="p-6">
-                  <motion.h2 
-                    className="text-2xl font-semibold mb-2 text-white"
-                    whileHover={{ color: "#60A5FA" }}
+                {project.title}
+              </motion.h2>
+              <p className="text-gray-300 mb-4">{project.description}</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.technologies.map((tech, techIndex) => (
+                  <motion.span
+                    key={techIndex}
+                    className="px-3 py-1 bg-transparent text-blue-200 rounded-full text-sm border border-blue-200"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                   >
-                    {project.title}
-                  </motion.h2>
-                  <p className="text-gray-300 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech, techIndex) => (
-                      <motion.span
-                        key={techIndex}
-                        className="px-3 py-1 bg-transparent text-blue-200 rounded-full text-sm border border-blue-200"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        {tech}
-                      </motion.span>
-                    ))}
-                  </div>
-                  <motion.a
-                    href={project.link}
-                    className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    View Project
-                  </motion.a>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+              <motion.a
+                href={project.link}
+                className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                View Project
+              </motion.a>
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </PageTransition>
+    </motion.div>
   );
 };
 
