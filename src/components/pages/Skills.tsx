@@ -149,17 +149,30 @@ const Skills = () => {
       initial="hidden"
       animate="visible"
     >
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
         {/* Left column: Skills */}
-        <div className="flex-1 space-y-6 md:space-y-8">
+        <div className="flex-1 space-y-8 md:space-y-10">
           {skillCategories.map((category, index) => (
             <motion.div
               key={index}
-              className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-lg shadow-xl p-8 border border-gray-800/50"
+              className="bg-[rgba(26,26,26,0.6)] backdrop-blur-xl rounded-2xl shadow-2xl p-8 md:p-10 border border-[rgba(255,255,255,0.1)]"
+              style={{
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+              }}
               variants={fadeInUpVariants}
               whileHover={{ scale: 1.01 }}
             >
-              <motion.h2 className="text-2xl font-semibold mb-6 text-white" variants={fadeInUpVariants}>
+              <motion.h2
+                className="text-3xl font-bold mb-6"
+                style={{
+                  background: 'linear-gradient(to right, #FFFFFF, #E5E5E5)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  letterSpacing: '-0.01em'
+                }}
+                variants={fadeInUpVariants}
+              >
                 {category.title}
               </motion.h2>
               {category.description && (
@@ -169,12 +182,12 @@ const Skills = () => {
                 {category.skills.map((skill, i) => (
                   <motion.span
                     key={i}
-                    className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-full text-sm font-medium shadow-lg hover:shadow-xl transition-shadow cursor-default"
+                    className="px-4 py-2 bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white rounded-full text-sm font-medium shadow-lg hover:shadow-xl transition-shadow cursor-default"
                     variants={fadeInUpVariants}
                     whileHover={{
                       scale: 1.05,
                       y: -2,
-                      boxShadow: "0 10px 40px rgba(59, 130, 246, 0.4)",
+                      boxShadow: "0 10px 40px rgba(99, 102, 241, 0.5)",
                       transition: { duration: 0.2 }
                     }}
                     whileTap={{ scale: 0.95 }}
@@ -189,7 +202,17 @@ const Skills = () => {
 
         {/* Right column: Certifications */}
         <div className="flex-1 lg:max-w-md">
-          <motion.h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-white" variants={fadeInUpVariants}>
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8"
+            style={{
+              background: 'linear-gradient(to right, #6366F1, #8B5CF6)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              letterSpacing: '-0.01em'
+            }}
+            variants={fadeInUpVariants}
+          >
             Certifications
           </motion.h2>
           <div className="grid grid-cols-1 gap-4 md:gap-6">

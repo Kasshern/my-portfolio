@@ -13,17 +13,20 @@ const Education = () => {
       animate="visible"
     >
       <motion.section
-        className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-lg shadow-xl p-8 mb-8 border border-gray-800/50"
+        className="bg-[rgba(26,26,26,0.6)] backdrop-blur-xl rounded-2xl shadow-2xl p-8 md:p-12 mb-12 border border-[rgba(255,255,255,0.1)]"
+        style={{
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+        }}
         variants={fadeInLeftVariants}
         whileHover={{ scale: 1.01 }}
       >
         <motion.div variants={fadeInLeftVariants}>
           {/* Georgia Institute of Technology */}
-          <div className="mb-8">
-            <h3 className="text-2xl font-bold text-white">Georgia Institute of Technology</h3>
-            <p className="text-xl text-gray-300">Master of Science - MS, Computer Science (Machine Learning)</p>
-            <p className="text-lg text-gray-400">Jan 2024 - Expected 2026</p>
-            <p className="text-lg text-gray-400">GPA: 4.0 (in progress)</p>
+          <div className="mb-12">
+            <h3 className="text-3xl font-bold text-white mb-2" style={{ letterSpacing: '-0.01em' }}>Georgia Institute of Technology</h3>
+            <p className="text-xl text-[#E5E5E5]">Master of Science - MS, Computer Science (Machine Learning)</p>
+            <p className="text-lg text-[#A3A3A3]">Jan 2024 - Expected 2026</p>
+            <p className="text-lg text-[#A3A3A3]">GPA: 4.0 (in progress)</p>
             <div className="mt-4">
               <p className="text-lg text-gray-300 font-semibold mb-2">Graduate Coursework Highlights:</p>
               <ul className="list-disc list-inside text-gray-300 space-y-2 hanging-indent">
@@ -58,7 +61,10 @@ const Education = () => {
 
       {/* Awards and Certifications Section */}
       <motion.section
-        className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-lg shadow-xl p-8 mb-8 border border-gray-800/50"
+        className="bg-[rgba(26,26,26,0.6)] backdrop-blur-xl rounded-2xl shadow-2xl p-8 mb-8 border border-[rgba(255,255,255,0.1)]"
+        style={{
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+        }}
         variants={fadeInLeftVariants}
         whileHover={{ scale: 1.01 }}
       >

@@ -1,32 +1,115 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --background-elevated: #1a1a1a;
-  --background-subtle: #151515;
+  /* Premium Dark Theme - 2025 */
+  --background-primary: #0F0F0F;
+  --background-elevated: #1A1A1A;
+  --background-surface: #171717;
+  --background-subtle: #141414;
+
+  /* Text Colors */
   --foreground: #ffffff;
-  --accent-blue: #3b82f6;
-  --accent-cyan: #06b6d4;
+  --foreground-secondary: #E5E5E5;
+  --foreground-muted: #A3A3A3;
+
+  /* Accent Colors - Modern Indigo/Purple/Pink Palette */
+  --accent-primary: #6366F1;
+  --accent-secondary: #8B5CF6;
+  --accent-tertiary: #EC4899;
+  --accent-success: #10B981;
+  --accent-warning: #F59E0B;
+
+  /* Gradient Definitions */
+  --gradient-hero: radial-gradient(circle at top, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  --gradient-card: linear-gradient(135deg, #1A1A1A 0%, #171717 100%);
+  --gradient-accent: linear-gradient(to right, #6366F1, #8B5CF6, #EC4899);
+  --gradient-accent-subtle: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+
+  /* Border Colors */
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-medium: rgba(255, 255, 255, 0.15);
+
+  /* Shadow Definitions */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
+  --shadow-glow-primary: 0 0 30px rgba(99, 102, 241, 0.3);
+  --shadow-glow-secondary: 0 0 30px rgba(139, 92, 246, 0.3);
+  --shadow-glow-tertiary: 0 0 30px rgba(236, 72, 153, 0.3);
 }
 
 @theme inline {
-  --color-background: var(--background);
+  --color-background-primary: var(--background-primary);
   --color-background-elevated: var(--background-elevated);
+  --color-background-surface: var(--background-surface);
   --color-background-subtle: var(--background-subtle);
   --color-foreground: var(--foreground);
-  --color-accent-blue: var(--accent-blue);
-  --color-accent-cyan: var(--accent-cyan);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-tertiary: var(--accent-tertiary);
+  --color-accent-success: var(--accent-success);
+  --color-accent-warning: var(--accent-warning);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
+  background: var(--background-primary);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   position: relative;
   overflow-x: hidden;
   font-size: 16px;
+}
+
+/* Subtle noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Gradient mesh background */
+body::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 90%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: meshMove 20s ease-in-out infinite;
+}
+
+@keyframes meshMove {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(-5%, -5%) rotate(1deg);
+  }
+  66% {
+    transform: translate(5%, 5%) rotate(-1deg);
+  }
+}
+
+/* Ensure content is above background effects */
+main {
+  position: relative;
+  z-index: 2;
 }
 
 @media (max-width: 640px) {
