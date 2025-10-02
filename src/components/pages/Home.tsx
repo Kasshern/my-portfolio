@@ -50,7 +50,7 @@ const Home = () => {
   const CurrentContentComponent = currentContent ? pageComponents[currentContent] : null;
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-[#0F0F0F]" style={{ background: 'radial-gradient(circle at top, rgba(99, 102, 241, 0.15) 0%, #0F0F0F 70%)' }}>
       {/* Skip to content link for accessibility */}
       <a href="#main-content" className="skip-to-content">
         Skip to main content
@@ -58,6 +58,31 @@ const Home = () => {
 
       {/* Fixed Header Section with ProfileNavigation */}
       <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8">
+        {/* Hero Title */}
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <h1
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 tracking-tight"
+            style={{
+              background: 'linear-gradient(to right, #6366F1, #8B5CF6, #EC4899)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              letterSpacing: '-0.02em'
+            }}
+          >
+            Keith A. Salzman
+          </h1>
+          <p className="text-xl sm:text-2xl md:text-3xl text-[#E5E5E5] font-medium tracking-wide">
+            Research Scientist & ML Engineer
+          </p>
+        </motion.div>
+
+        {/* Profile Navigation */}
         <motion.div
           className="mt-8"
           variants={scaleInVariants}
@@ -73,14 +98,14 @@ const Home = () => {
         {CurrentContentComponent && (
           <motion.div
             key={currentContent}
-            className="w-full bg-[#0a0a0a] content-area"
+            className="w-full bg-[#0F0F0F] content-area"
             id="main-content"
             initial="initial"
             animate="animate"
             exit="exit"
             variants={pageTransitionVariants}
           >
-            <div ref={contentRef} className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+            <div ref={contentRef} className="max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 py-16 sm:py-20 md:py-24">
               <CurrentContentComponent />
               <DynamicSpacing contentRef={contentRef} />
             </div>

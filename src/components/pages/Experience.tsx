@@ -14,17 +14,23 @@ const Experience = () => {
       animate="visible"
     >
       <motion.section
-        className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-lg shadow-xl p-8 mb-8 border border-gray-800/50"
+        className="bg-[rgba(26,26,26,0.6)] backdrop-blur-xl rounded-2xl shadow-2xl p-8 md:p-12 mb-12 border border-[rgba(255,255,255,0.1)]"
+        style={{
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+        }}
         variants={fadeInLeftVariants}
         whileHover={{ scale: 1.01 }}
       >
         {/* ConsenSys Mesh - Research Scientist & Lead Developer */}
-        <motion.div className="mb-8" whileHover={{ x: 10 }}>
-          <h3 className="text-2xl font-bold text-white">Research Scientist & Lead Developer</h3>
-          <p className="text-xl text-gray-300 font-semibold">ConsenSys Mesh · Full-time</p>
-          <p className="text-lg text-gray-400">Feb 2022 - Present</p>
-          <p className="text-lg text-gray-400">Austin, Texas, United States</p>
-          <ul className="list-disc list-inside mt-2 text-gray-300 space-y-2 hanging-indent text-xl">
+        <motion.div className="mb-12 last:mb-0 relative pl-8 border-l-2 border-[#6366F1]" whileHover={{ x: 10 }}>
+          {/* Timeline dot */}
+          <div className="absolute left-[-9px] top-2 w-4 h-4 rounded-full bg-[#6366F1]" style={{ boxShadow: '0 0 20px rgba(99, 102, 241, 0.6)' }} />
+
+          <h3 className="text-3xl font-bold text-white mb-3" style={{ letterSpacing: '-0.01em' }}>Research Scientist & Lead Developer</h3>
+          <p className="text-xl text-[#E5E5E5] font-semibold mb-1">ConsenSys Mesh · Full-time</p>
+          <p className="text-lg text-[#A3A3A3] mb-1">Feb 2022 - Present</p>
+          <p className="text-lg text-[#A3A3A3] mb-4">Austin, Texas, United States</p>
+          <ul className="list-disc list-inside mt-6 text-gray-300 space-y-3 hanging-indent text-lg">
             <li>Applied zero-knowledge (ZK) proofs and Multi-Party Compute (MPC) research to architect secure Rust/Python/C++ systems for telecommunications and geo-fencing clients, reducing third-party audit time by ~40% and improving data verification accuracy by ~25% across deployments.</li>
             <li>Optimized ZK SNARK circuits and constraint systems in Circom/Gnark, cutting verification costs by ~30% and enabling scalable deployment in production systems.</li>
             <li>Built ML pipelines in PyTorch/NetworkX/SQL to analyze &gt;10M-node graph datasets, improving anomaly detection accuracy by ~10%.</li>

@@ -64,11 +64,14 @@ const Projects = () => {
       initial="hidden"
       animate="visible"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12">
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-lg shadow-xl overflow-hidden border border-gray-800/50"
+            className="bg-[rgba(26,26,26,0.6)] backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-[rgba(255,255,255,0.1)]"
+            style={{
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+            }}
             variants={fadeInUpVariants}
             whileHover={{
               scale: 1.02,
@@ -88,11 +91,17 @@ const Projects = () => {
             ) : (
               <div className="h-48 bg-transparent"></div>
             )}
-            <div className="p-6">
+            <div className="p-6 md:p-8">
               <div className="flex items-start justify-between mb-2">
                 <motion.h2
-                  className="text-2xl font-semibold text-white flex-1"
-                  whileHover={{ color: "#60A5FA" }}
+                  className="text-2xl font-bold text-white flex-1"
+                  style={{ letterSpacing: '-0.01em' }}
+                  whileHover={{
+                    background: 'linear-gradient(to right, #6366F1, #8B5CF6)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text'
+                  }}
                 >
                   {project.title}
                 </motion.h2>
@@ -107,11 +116,11 @@ const Projects = () => {
                 {project.technologies.map((tech, techIndex) => (
                   <motion.span
                     key={techIndex}
-                    className="px-3 py-1 bg-transparent text-blue-200 rounded-full text-sm border border-blue-200"
+                    className="px-3 py-1 bg-transparent text-[#A5B4FC] rounded-full text-sm border border-[#6366F1]"
                     whileHover={{
                       scale: 1.1,
-                      backgroundColor: "rgba(59, 130, 246, 0.1)",
-                      borderColor: "#60A5FA"
+                      backgroundColor: "rgba(99, 102, 241, 0.15)",
+                      borderColor: "#8B5CF6"
                     }}
                     whileTap={{ scale: 0.9 }}
                     transition={{ duration: 0.2 }}
@@ -125,7 +134,7 @@ const Projects = () => {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black"
+                  className="inline-block bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white px-4 py-2 rounded hover:shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:ring-offset-2 focus:ring-offset-[#0F0F0F]"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={`View ${project.title}`}
@@ -135,7 +144,7 @@ const Projects = () => {
               ) : (
                 <button
                   disabled
-                  className="inline-block bg-gray-700 text-gray-400 px-4 py-2 rounded cursor-not-allowed opacity-60"
+                  className="inline-block bg-[#1A1A1A] text-[#A3A3A3] px-4 py-2 rounded cursor-not-allowed opacity-60 border border-[rgba(255,255,255,0.1)]"
                   aria-label={`${project.title} - Not publicly available`}
                 >
                   Not Available

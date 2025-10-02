@@ -31,72 +31,35 @@ interface ProfileNavigationProps {
   onNavigate?: (page: PageType) => void;
 }
 
-// Flame effect component
-const FlameEffect: React.FC<{ 
-  isVisible: boolean; 
-  color: string; 
+// Orbital Glow Ring effect component
+const OrbitalGlowEffect: React.FC<{
+  isVisible: boolean;
+  color: string;
   x: number;
   y: number;
   isClient: boolean;
 }> = ({ isVisible, color, x, y, isClient }) => {
-  const flameColors = {
-    red: {
-      outer: 'from-red-600 via-red-500 to-orange-400',
-      middle: 'from-orange-500 via-yellow-400 to-orange-300',
-      inner: 'from-yellow-300 via-yellow-200 to-white',
-      spark: 'bg-yellow-200'
-    },
-    blue: {
-      outer: 'from-blue-600 via-blue-500 to-cyan-400',
-      middle: 'from-cyan-500 via-blue-400 to-cyan-300',
-      inner: 'from-cyan-300 via-cyan-200 to-white',
-      spark: 'bg-cyan-200'
-    },
-    green: {
-      outer: 'from-green-600 via-green-500 to-emerald-400',
-      middle: 'from-emerald-500 via-green-400 to-emerald-300',
-      inner: 'from-emerald-300 via-emerald-200 to-white',
-      spark: 'bg-emerald-200'
-    },
-    purple: {
-      outer: 'from-purple-600 via-purple-500 to-pink-400',
-      middle: 'from-pink-500 via-purple-400 to-pink-300',
-      inner: 'from-pink-300 via-pink-200 to-white',
-      spark: 'bg-pink-200'
-    },
-    orange: {
-      outer: 'from-orange-600 via-orange-500 to-red-400',
-      middle: 'from-red-500 via-orange-400 to-red-300',
-      inner: 'from-red-300 via-red-200 to-white',
-      spark: 'bg-red-200'
-    },
-    cyan: {
-      outer: 'from-cyan-600 via-cyan-500 to-blue-400',
-      middle: 'from-blue-500 via-cyan-400 to-blue-300',
-      inner: 'from-blue-300 via-blue-200 to-white',
-      spark: 'bg-cyan-200'
-    },
-    pink: {
-      outer: 'from-pink-600 via-pink-500 to-purple-400',
-      middle: 'from-purple-500 via-pink-400 to-purple-300',
-      inner: 'from-purple-300 via-purple-200 to-white',
-      spark: 'bg-purple-200'
-    },
+  const glowColors = {
+    red: '#EF4444',
+    blue: '#6366F1',
+    green: '#10B981',
+    purple: '#8B5CF6',
+    orange: '#F59E0B',
+    cyan: '#06B6D4',
+    pink: '#EC4899',
   };
 
-  const colorScheme = flameColors[color as keyof typeof flameColors] || flameColors.red;
-  
-  // Calculate flame position - now using pure orbital motion
+  const glowColor = glowColors[color as keyof typeof glowColors] || glowColors.blue;
 
   return (
     <motion.div
-      className={`absolute transform -translate-x-1/2 -translate-y-1/2 z-0`}
+      className="absolute transform -translate-x-1/2 -translate-y-1/2 z-0"
       style={{
         left: `calc(50% + ${x}px)`,
         top: `calc(50% + ${y}px)`,
       }}
-      initial={isClient ? { 
-        opacity: 0, 
+      initial={isClient ? {
+        opacity: 0,
         scale: 0
       } : { opacity: 0, scale: 0 }}
       animate={isClient && isVisible ? {
@@ -107,180 +70,120 @@ const FlameEffect: React.FC<{
         scale: 0
       } : { opacity: 0, scale: 0 }}
       transition={isClient ? {
-        duration: 0.2,
+        duration: 0.3,
         ease: "easeOut"
       } : {}}
     >
-      {/* Main flame body with jetting animation */}
-      <div className="relative">
-        {/* Outer flame layer */}
-        <div 
-          className={`w-16 h-20 md:w-20 md:h-24 bg-gradient-to-t ${colorScheme.outer} rounded-full blur-sm animate-pulse`}
-          style={{ 
-            animationDuration: '1.2s',
-            transform: isVisible ? 'scale(1.2)' : 'scale(0.8)',
-            transition: 'transform 0.5s ease-out'
-          }}
-        />
-        
-        {/* Middle flame layer */}
-        <div 
-          className={`absolute inset-0 w-12 h-16 md:w-16 md:h-20 bg-gradient-to-t ${colorScheme.middle} rounded-full blur-md animate-ping`}
-          style={{ 
-            animationDelay: '0.3s',
-            animationDuration: '1.2s',
-            transform: isVisible ? 'scale(1.1)' : 'scale(0.9)',
-            transition: 'transform 0.5s ease-out'
-          }}
-        />
-        
-        {/* Inner flame core */}
-        <div 
-          className={`absolute inset-0 w-8 h-12 md:w-12 md:h-16 bg-gradient-to-t ${colorScheme.inner} rounded-full blur-sm animate-pulse`}
-          style={{ 
-            animationDuration: '1.2s',
-            transform: isVisible ? 'scale(1.3)' : 'scale(0.7)',
-            transition: 'transform 0.5s ease-out'
-          }}
-        />
-        
-        {/* Brightest center */}
-        <div 
-          className="absolute inset-0 w-6 h-8 md:w-8 md:h-10 bg-gradient-to-t from-white to-yellow-100 rounded-full blur-sm animate-pulse"
+      {/* Outer rotating ring */}
+      <motion.div
+        className="relative w-20 h-20 md:w-24 md:h-24"
+        animate={{
+          rotate: 360
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "linear"
+        }}
+      >
+        <div
+          className="absolute inset-0 rounded-full"
           style={{
-            animationDuration: '1.2s',
-            transform: isVisible ? 'scale(1.4)' : 'scale(0.6)',
-            transition: 'transform 0.5s ease-out'
+            background: `radial-gradient(circle at center, transparent 60%, ${glowColor}40 70%, transparent 80%)`,
+            filter: 'blur(2px)'
           }}
         />
-      </div>
+      </motion.div>
+
+      {/* Inner pulsing glow */}
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center"
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.6, 1, 0.6]
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        <div
+          className="w-3 h-3 rounded-full"
+          style={{
+            background: glowColor,
+            boxShadow: `0 0 20px ${glowColor}, 0 0 40px ${glowColor}80`
+          }}
+        />
+      </motion.div>
     </motion.div>
   );
 };
 
-// Floating flame component for the journey animation (simplified - no return)
-const FloatingFlameEffect: React.FC<{
+// Floating glow orb for navigation transition
+const FloatingGlowEffect: React.FC<{
   flame: FloatingFlame;
   color: string;
   onAnchorComplete: () => void;
 }> = ({ flame, color, onAnchorComplete }) => {
-  const flameColors = {
-    red: {
-      outer: 'from-red-600 via-red-500 to-orange-400',
-      middle: 'from-orange-500 via-yellow-400 to-orange-300',
-      inner: 'from-yellow-300 via-yellow-200 to-white',
-      spark: 'bg-yellow-200'
-    },
-    blue: {
-      outer: 'from-blue-600 via-blue-500 to-cyan-400',
-      middle: 'from-cyan-500 via-blue-400 to-cyan-300',
-      inner: 'from-cyan-300 via-cyan-200 to-white',
-      spark: 'bg-cyan-200'
-    },
-    green: {
-      outer: 'from-green-600 via-green-500 to-emerald-400',
-      middle: 'from-emerald-500 via-green-400 to-emerald-300',
-      inner: 'from-emerald-300 via-emerald-200 to-white',
-      spark: 'bg-emerald-200'
-    },
-    purple: {
-      outer: 'from-purple-600 via-purple-500 to-pink-400',
-      middle: 'from-pink-500 via-purple-400 to-pink-300',
-      inner: 'from-pink-300 via-pink-200 to-white',
-      spark: 'bg-purple-200'
-    },
-    orange: {
-      outer: 'from-orange-600 via-orange-500 to-red-400',
-      middle: 'from-red-500 via-orange-400 to-red-300',
-      inner: 'from-red-300 via-red-200 to-white',
-      spark: 'bg-red-200'
-    },
-    cyan: {
-      outer: 'from-cyan-600 via-cyan-500 to-blue-400',
-      middle: 'from-blue-500 via-cyan-400 to-blue-300',
-      inner: 'from-blue-300 via-blue-200 to-white',
-      spark: 'bg-cyan-200'
-    },
-    pink: {
-      outer: 'from-pink-600 via-pink-500 to-purple-400',
-      middle: 'from-purple-500 via-pink-400 to-purple-300',
-      inner: 'from-purple-300 via-purple-200 to-white',
-      spark: 'bg-purple-200'
-    },
+  const glowColors = {
+    red: '#EF4444',
+    blue: '#6366F1',
+    green: '#10B981',
+    purple: '#8B5CF6',
+    orange: '#F59E0B',
+    cyan: '#06B6D4',
+    pink: '#EC4899',
   };
 
-  const colorScheme = flameColors[color as keyof typeof flameColors] || flameColors.red;
+  const glowColor = glowColors[color as keyof typeof glowColors] || glowColors.blue;
 
   return (
     <motion.div
-      className="fixed z-50 pointer-events-none"
+      className="fixed z-50 pointer-events-none flex items-center justify-center"
       style={{
         left: `calc(50% + ${flame.currentPosition.x}px)`,
         top: `calc(50% + ${flame.currentPosition.y}px)`,
       }}
       animate={{
-        left: '20px',
-        top: '20px',
+        left: '60px',
+        top: '60px',
         opacity: flame.journeyState === 'anchored' ? 1 : 1,
       }}
       transition={{
-        duration: 1.5,
+        duration: 1.0,
         ease: "easeInOut"
       }}
       onAnimationComplete={() => {
         if (flame.journeyState === 'departing') {
-          // Flame has reached top-left, just keep it there
           onAnchorComplete();
         }
       }}
     >
-      {/* Main flame body */}
-      <div className="relative">
-        {/* Outer flame layer */}
-        <div 
-          className={`w-16 h-20 md:w-20 md:h-24 bg-gradient-to-t ${colorScheme.outer} rounded-full blur-sm animate-pulse`}
-          style={{ 
-            animationDuration: '1.2s',
-            transform: 'scale(1.2)',
-            transition: 'transform 0.5s ease-out'
-          }}
-        />
-        
-        {/* Middle flame layer */}
-        <div 
-          className={`absolute inset-0 w-12 h-16 md:w-16 md:h-20 bg-gradient-to-t ${colorScheme.middle} rounded-full blur-md animate-ping`}
-          style={{ 
-            animationDelay: '0.3s',
-            animationDuration: '1.2s',
-            transform: 'scale(1.1)',
-            transition: 'transform 0.5s ease-out'
-          }}
-        />
-        
-        {/* Inner flame core */}
-        <div 
-          className={`absolute inset-0 w-8 h-12 md:w-12 md:h-16 bg-gradient-to-t ${colorScheme.inner} rounded-full blur-sm animate-pulse`}
-          style={{ 
-            animationDuration: '1.2s',
-            transform: 'scale(1.3)',
-            transition: 'transform 0.5s ease-out'
-          }}
-        />
-        
-        {/* Brightest center */}
-        <div 
-          className="absolute inset-0 w-6 h-8 md:w-8 md:h-10 bg-gradient-to-t from-white to-yellow-100 rounded-full blur-sm animate-pulse"
+      {/* Glowing orb with trail */}
+      <motion.div
+        className="relative"
+        animate={{
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      >
+        <div
+          className="w-8 h-8 rounded-full"
           style={{
-            animationDuration: '1.2s',
-            transform: 'scale(1.4)',
-            transition: 'transform 0.5s ease-out'
+            background: `radial-gradient(circle at center, ${glowColor}, ${glowColor}00)`,
+            boxShadow: `0 0 30px ${glowColor}, 0 0 60px ${glowColor}80`
           }}
         />
-      </div>
-      
-      {/* Floating word positioned inside the flame */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <FloatingWord 
+      </motion.div>
+
+      {/* Floating label */}
+      <div className="absolute top-12 whitespace-nowrap">
+        <FloatingWord
           label={flame.linkLabel}
           color={flame.linkColor}
         />
@@ -441,9 +344,9 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
       role="navigation"
       aria-label="Main navigation"
     >
-      {/* Floating Flame Effect */}
+      {/* Floating Glow Effect */}
       {floatingFlame && (
-        <FloatingFlameEffect
+        <FloatingGlowEffect
           flame={floatingFlame}
           color={navLinks.find(link => link.href === `/${floatingFlame.targetPage}`)?.flameColor || 'blue'}
           onAnchorComplete={() => {
@@ -455,12 +358,12 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
           }}
         />
       )}
-      {/* Profile Picture Container with sun/horizon effect */}
+      {/* Profile Picture Container with gradient border */}
       <motion.div
-        className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl bg-gray-800 flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-105"
+        className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-105"
         style={{
-          background: isVisible ? 'radial-gradient(circle at center, transparent 0%, rgba(255, 255, 255, 0.1) 40%, rgba(255, 255, 255, 0.2) 60%, rgba(255, 255, 255, 0.05) 80%, transparent 100%)' : 'transparent',
-          padding: '2px',
+          background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
+          padding: '3px',
         }}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
@@ -476,78 +379,41 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
           ease: 'easeOut' 
         }}
       >
-        {/* Sun/Horizon Effect (shown when profile is hidden) */}
+        {/* Gradient Glow Effect (shown when profile is hidden) */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center"
-          animate={isVisible ? { 
+          animate={isVisible ? {
             opacity: 0
-          } : { 
+          } : {
             opacity: 1
           }}
-          transition={{ 
+          transition={{
             duration: 0.2,
-            ease: 'easeOut' 
+            ease: 'easeOut'
           }}
         >
-          {/* Pure flame animation as hover target */}
-          <div className="relative">
-            {/* Core flame shapes using SVG */}
-            <svg 
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-20"
-              viewBox="0 0 64 80"
-              style={{ zIndex: 5 }}
-            >
-              {/* Core flame (brightest) */}
-              <path
-                d="M32 2 Q36 22 34 42 Q32 62 30 42 Q28 22 32 2"
-                fill="rgba(255,255,255,1)"
-                style={{
-                  animation: 'flameCore 1.1s ease-in-out infinite alternate',
-                  filter: 'blur(0.2px)',
-                }}
-              />
-              
-              {/* Main flame */}
-              <path
-                d="M32 0 Q40 20 36 40 Q32 60 28 40 Q24 20 32 0"
-                fill="rgba(255,255,255,0.8)"
-                style={{
-                  animation: 'flameRealistic 1.4s ease-in-out infinite alternate',
-                  filter: 'blur(0.5px)',
-                }}
-              />
-              
-              {/* Inner flame */}
-              <path
-                d="M32 5 Q38 25 35 45 Q32 65 29 45 Q26 25 32 5"
-                fill="rgba(255,255,255,0.9)"
-                style={{
-                  animation: 'flameRealistic 1.2s ease-in-out infinite alternate-reverse',
-                  filter: 'blur(0.3px)',
-                }}
-              />
-              
-              {/* Outer glow */}
-              <path
-                d="M32 0 Q44 25 40 50 Q32 75 24 50 Q20 25 32 0"
-                fill="rgba(255,255,255,0.4)"
-                style={{
-                  animation: 'flameRealistic 1.6s ease-in-out infinite alternate',
-                  filter: 'blur(1px)',
-                }}
-              />
-              
-              {/* Extended outer glow */}
-              <path
-                d="M32 0 Q48 30 44 55 Q32 85 20 55 Q16 30 32 0"
-                fill="rgba(255,255,255,0.2)"
-                style={{
-                  animation: 'flameRealistic 1.8s ease-in-out infinite alternate-reverse',
-                  filter: 'blur(1.5px)',
-                }}
-              />
-            </svg>
-          </div>
+          {/* Pulsing gradient orb */}
+          <motion.div
+            className="relative w-24 h-24"
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.8, 1, 0.8]
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <div
+              className="w-full h-full rounded-full"
+              style={{
+                background: 'radial-gradient(circle at center, #6366F1, #8B5CF6, transparent)',
+                filter: 'blur(8px)',
+                boxShadow: '0 0 60px rgba(99, 102, 241, 0.6)'
+              }}
+            />
+          </motion.div>
         </motion.div>
 
         {/* Profile Picture (shown when visible) */}
@@ -617,17 +483,17 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
         />
       )}
 
-      {/* Container for all flames and navigation words */}
+      {/* Container for all orbital glows and navigation words */}
       <div className="absolute inset-0">
-        {/* Flame Effects */}
+        {/* Orbital Glow Effects */}
         {positionedLinks.map((link) => {
-          // Check if this flame position should be vacant (same logic as navigation links)
-          const isCurrentlyFloating = floatingFlame && 
+          // Check if this glow position should be vacant (same logic as navigation links)
+          const isCurrentlyFloating = floatingFlame &&
             floatingFlame.targetPage === (link.href === '/' ? 'home' : link.href.slice(1));
-          
+
           return (
-            <FlameEffect
-              key={`flame-${link.href}`}
+            <OrbitalGlowEffect
+              key={`glow-${link.href}`}
               isVisible={isVisible && !isCurrentlyFloating}
               color={link.flameColor}
               x={link.x}
