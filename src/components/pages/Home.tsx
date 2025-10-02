@@ -10,6 +10,7 @@ import Skills from './Skills';
 import Projects from './Projects';
 import Videos from './Videos';
 import Contact from './Contact';
+import { scaleInVariants, pageTransitionVariants } from '@/lib/animations';
 
 type PageType = 'home' | 'experience' | 'education' | 'skills' | 'projects' | 'videos' | 'contact';
 
@@ -49,19 +50,19 @@ const Home = () => {
   const CurrentContentComponent = currentContent ? pageComponents[currentContent] : null;
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[#0a0a0a]">
+      {/* Skip to content link for accessibility */}
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
+
       {/* Fixed Header Section with ProfileNavigation */}
-      <div className="flex flex-col items-center justify-center min-h-screen p-8">
+      <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8">
         <motion.div
           className="mt-8"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ 
-            type: "spring",
-            stiffness: 260,
-            damping: 20,
-            delay: 0.2 
-          }}
+          variants={scaleInVariants}
+          initial="hidden"
+          animate="visible"
         >
           <ProfileNavigation onNavigate={handleNavigation} />
         </motion.div>
@@ -72,18 +73,14 @@ const Home = () => {
         {CurrentContentComponent && (
           <motion.div
             key={currentContent}
-            className="w-full bg-black content-area"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              damping: 20,
-              duration: 0.4
-            }}
+            className="w-full bg-[#0a0a0a] content-area"
+            id="main-content"
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={pageTransitionVariants}
           >
-            <div ref={contentRef} className="max-w-6xl mx-auto px-8">
+            <div ref={contentRef} className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
               <CurrentContentComponent />
               <DynamicSpacing contentRef={contentRef} />
             </div>

@@ -158,37 +158,12 @@ const FlameEffect: React.FC<{
   );
 };
 
-// Calculate return position based on current profile position
-const calculateReturnPosition = (flame: FloatingFlame) => {
-  if (flame.journeyState === 'returning' && flame.profilePosition) {
-    // Calculate flame position relative to current profile position
-    const profileCenterX = flame.profilePosition.left + (flame.profilePosition.width / 2);
-    const profileCenterY = flame.profilePosition.top + (flame.profilePosition.height / 2);
-    
-    // Add the original flame offset to the profile center
-    const flameX = profileCenterX + flame.originalPosition.x;
-    const flameY = profileCenterY + flame.originalPosition.y;
-    
-    return {
-      left: `${flameX}px`,
-      top: `${flameY}px`
-    };
-  }
-  
-  // Fallback to original calculation if no profile position data
-  return {
-    left: `calc(50% + ${flame.originalPosition.x}px)`,
-    top: `calc(50% + ${flame.originalPosition.y}px)`
-  };
-};
-
-// Floating flame component for the journey animation
-const FloatingFlameEffect: React.FC<{ 
+// Floating flame component for the journey animation (simplified - no return)
+const FloatingFlameEffect: React.FC<{
   flame: FloatingFlame;
   color: string;
-  onJourneyStateChange: (newState: FlameJourneyState) => void;
-  onReturnComplete: () => void;
-}> = ({ flame, color, onJourneyStateChange, onReturnComplete }) => {
+  onAnchorComplete: () => void;
+}> = ({ flame, color, onAnchorComplete }) => {
   const flameColors = {
     red: {
       outer: 'from-red-600 via-red-500 to-orange-400',
@@ -243,27 +218,19 @@ const FloatingFlameEffect: React.FC<{
         left: `calc(50% + ${flame.currentPosition.x}px)`,
         top: `calc(50% + ${flame.currentPosition.y}px)`,
       }}
-      animate={
-        flame.journeyState === 'returning' ? calculateReturnPosition(flame) : 
-        flame.journeyState === 'anchored' ? {
-          left: '20px',
-          top: '20px',
-        } : {
-          left: '20px',
-          top: '20px',
-        }
-      }
+      animate={{
+        left: '20px',
+        top: '20px',
+        opacity: flame.journeyState === 'anchored' ? 1 : 1,
+      }}
       transition={{
-        duration: flame.journeyState === 'returning' ? 1.0 : 1.5,
+        duration: 1.5,
         ease: "easeInOut"
       }}
       onAnimationComplete={() => {
         if (flame.journeyState === 'departing') {
-          // Flame has reached top-left, update to anchored state
-          onJourneyStateChange('anchored');
-        } else if (flame.journeyState === 'returning') {
-          // Return animation completed, disable real-time updates
-          onReturnComplete();
+          // Flame has reached top-left, just keep it there
+          onAnchorComplete();
         }
       }}
     >
@@ -402,10 +369,8 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
   const [isMobile, setIsMobile] = useState(false);
   const [isClient, setIsClient] = useState(false);
   const [floatingFlame, setFloatingFlame] = useState<FloatingFlame | null>(null);
-  const [isReturning, setIsReturning] = useState(false);
   const positionedLinks = calculatePositions(isMobile);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const triggerRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
   const { navigateToPage } = useNavigation();
 
@@ -416,86 +381,6 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  // Handle intersection observer for return animation
-  useEffect(() => {
-    if (!floatingFlame || !triggerRef.current) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && floatingFlame && floatingFlame.journeyState === 'anchored') {
-          // User has scrolled back to profile area - trigger return animation
-          // Capture current profile position
-          const profileRect = profileRef.current?.getBoundingClientRect();
-          const profilePosition = profileRect ? {
-            top: profileRect.top,
-            left: profileRect.left,
-            width: profileRect.width,
-            height: profileRect.height
-          } : undefined;
-          
-          setFloatingFlame(prev => prev ? {
-            ...prev,
-            journeyState: 'returning',
-            profilePosition
-          } : null);
-          
-          // Enable real-time position updates
-          setIsReturning(true);
-          
-          // Clean up after return animation completes
-          setTimeout(() => {
-            setFloatingFlame(null);
-          }, 1000); // Match the animation duration
-        }
-      });
-    }, {
-      threshold: 0.1, // Trigger when 10% of trigger zone is visible
-      rootMargin: '-50px 0px 0px 0px' // 50px margin from top
-    });
-
-    observer.observe(triggerRef.current);
-
-    return () => observer.disconnect();
-  }, [floatingFlame]);
-
-  // Real-time position updates during return animation
-  useEffect(() => {
-    if (!isReturning || !floatingFlame) return;
-    
-    const updatePosition = () => {
-      const profileRect = profileRef.current?.getBoundingClientRect();
-      if (profileRect && floatingFlame?.journeyState === 'returning') {
-        setFloatingFlame(prev => prev ? {
-          ...prev,
-          profilePosition: {
-            top: profileRect.top,
-            left: profileRect.left,
-            width: profileRect.width,
-            height: profileRect.height
-          }
-        } : null);
-      }
-    };
-    
-    // Update position on scroll (throttled for performance)
-    const handleScroll = () => {
-      requestAnimationFrame(updatePosition);
-    };
-    
-    // Also update on resize
-    const handleResize = () => {
-      requestAnimationFrame(updatePosition);
-    };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [isReturning, floatingFlame]);
 
 
 
@@ -548,30 +433,26 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
 
 
   return (
-    <div 
+    <nav
       ref={profileRef}
       className="relative flex items-center justify-center"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      role="navigation"
+      aria-label="Main navigation"
     >
-      {/* Intersection Observer Trigger */}
-      <div 
-        ref={triggerRef}
-        className="absolute top-0 left-0 w-full h-20 pointer-events-none z-10"
-      />
-      
       {/* Floating Flame Effect */}
       {floatingFlame && (
         <FloatingFlameEffect
           flame={floatingFlame}
           color={navLinks.find(link => link.href === `/${floatingFlame.targetPage}`)?.flameColor || 'blue'}
-          onJourneyStateChange={(newState) => {
+          onAnchorComplete={() => {
+            // Once anchored, just keep it there - no return animation
             setFloatingFlame(prev => prev ? {
               ...prev,
-              journeyState: newState
+              journeyState: 'anchored'
             } : null);
           }}
-          onReturnComplete={() => setIsReturning(false)}
         />
       )}
       {/* Profile Picture Container with sun/horizon effect */}
@@ -682,12 +563,13 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
             ease: 'easeOut' 
           }}
         >
-          <Image 
-            src="/ai_keith.jpg" 
-            alt="Keith Salzman profile" 
+          <Image
+            src="/ai_keith.jpg"
+            alt="Keith A. Salzman - Computer Scientist and Machine Learning Researcher"
             width={320}
             height={320}
-            className="object-cover w-full h-full" 
+            className="object-cover w-full h-full"
+            priority
           />
           {/* Eclipse gradient overlay on the image */}
           {isVisible && (
@@ -828,13 +710,23 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
                 ease: "easeOut"
               } : {}}
               onClick={() => handleLinkClick(link.href)}
+              role="button"
+              tabIndex={isVisible && !isCurrentlyFloating ? 0 : -1}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleLinkClick(link.href);
+                }
+              }}
+              aria-label={`Navigate to ${link.label} page`}
             >
-              <div 
-                className={`text-white text-sm md:text-lg lg:text-2xl font-medium whitespace-nowrap transition-all duration-200 cursor-pointer ${colorClasses[flameColor as keyof typeof colorClasses]}`}
+              <div
+                className={`text-white text-base md:text-xl lg:text-2xl font-medium whitespace-nowrap transition-all duration-200 cursor-pointer ${colorClasses[flameColor as keyof typeof colorClasses]}`}
                 style={{
                   ...fireAnimations[flameColor as keyof typeof fireAnimations],
                   transition: 'all 0.3s ease-in-out'
                 }}
+                aria-hidden="true"
               >
                 {link.label}
               </div>
@@ -844,14 +736,15 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
       </div>
 
       {/* Hover Indicator */}
-      <div 
+      <div
         className={`absolute inset-0 rounded-full border-2 border-transparent transition-all duration-300 ${
           isHovered ? 'border-cyan-400/50 scale-110' : ''
         }`}
+        aria-hidden="true"
       />
 
       {/* Remove Wave Function Collapse Image preview block */}
-    </div>
+    </nav>
   );
 };
 

@@ -2,71 +2,96 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { staggerContainerVariants, fadeInLeftVariants } from '@/lib/animations';
 
 const Education = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const sectionVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100
-      }
-    }
-  };
-
   return (
     <motion.div
       className="w-full"
-      variants={containerVariants}
+      variants={staggerContainerVariants}
       initial="hidden"
       animate="visible"
     >
-      <motion.section 
-        className="bg-transparent rounded-lg shadow-xl p-8 mb-8"
-        variants={sectionVariants}
+      <motion.section
+        className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-lg shadow-xl p-8 mb-8 border border-gray-800/50"
+        variants={fadeInLeftVariants}
         whileHover={{ scale: 1.01 }}
       >
-        <motion.div variants={sectionVariants}>
+        <motion.div variants={fadeInLeftVariants}>
           {/* Georgia Institute of Technology */}
           <div className="mb-8">
             <h3 className="text-2xl font-bold text-white">Georgia Institute of Technology</h3>
-            <p className="text-xl text-gray-300">Master of Science - MS, Artificial Intelligence</p>
-            <p className="text-lg text-gray-400">Jan 2024 - Dec 2026</p>
-            <p className="text-lg text-gray-400">Honors: Summa Cum Laude</p>
+            <p className="text-xl text-gray-300">Master of Science - MS, Computer Science (Machine Learning)</p>
+            <p className="text-lg text-gray-400">Jan 2024 - Expected 2026</p>
+            <p className="text-lg text-gray-400">GPA: 4.0 (in progress)</p>
+            <div className="mt-4">
+              <p className="text-lg text-gray-300 font-semibold mb-2">Graduate Coursework Highlights:</p>
+              <ul className="list-disc list-inside text-gray-300 space-y-2 hanging-indent">
+                <li>Applied supervised and unsupervised machine learning methods to large datasets, implementing decision trees, SVMs, and clustering algorithms in Python; improved model accuracy by ~15% compared to baseline while demonstrating tradeoffs in bias-variance.</li>
+                <li>Designed and trained convolutional and recurrent neural networks in PyTorch for image and sequence classification tasks; reduced validation error by ~20% through optimization experiments with SGD, Adam, and regularization techniques.</li>
+                <li>Modeled large-scale networks using graph theory and probabilistic methods; developed algorithms in NetworkX to measure centrality and community structure, enabling insights into connectivity patterns of &gt;1M-node networks.</li>
+                <li>Built reinforcement learning agents for complex decision-making in simulated environments; optimized Q-learning and policy gradient methods to achieve &gt;80% task success rates in multi-agent scenarios.</li>
+                <li>Researched fairness and bias in ML models using the German Credit dataset; implemented fairness-aware classifiers that reduced disparate impact scores by ~25% while maintaining predictive accuracy.</li>
+              </ul>
+            </div>
           </div>
+
           {/* University of Florida */}
           <div className="mb-8">
             <h3 className="text-2xl font-bold text-white">University of Florida</h3>
             <p className="text-xl text-gray-300">Bachelor of Science - BS, Computer Science</p>
-            <p className="text-lg text-gray-400">2017 - 2019</p>
-            <p className="text-lg text-gray-400">Grade: 3.9 GPA</p>
-            <p className="text-lg text-gray-400">Honors: Summa Cum Laude</p>
+            <p className="text-lg text-gray-400">Jan 2017 - Dec 2019</p>
+            <p className="text-lg text-gray-400">GPA: 3.83</p>
+            <p className="text-lg text-gray-400">Honors: Cum Laude</p>
           </div>
+
           {/* Polk State College */}
           <div className="mb-8">
             <h3 className="text-2xl font-bold text-white">Polk State College</h3>
-            <p className="text-xl text-gray-300">Associate of Science - AS, Biology/Biological Sciences, General</p>
-            <p className="text-lg text-gray-400">2007 - 2010</p>
-            <p className="text-lg text-gray-400">Grade: 3.8 GPA</p>
+            <p className="text-xl text-gray-300">Associate of Science - AS, Biological Science</p>
+            <p className="text-lg text-gray-400">Aug 2006 - May 2009</p>
+            <p className="text-lg text-gray-400">GPA: 3.77</p>
             <p className="text-lg text-gray-400">Honors: Magna Cum Laude</p>
           </div>
-          {/* University of Texas - Planned PhD */}
-          <div className="mb-8">
-            <h3 className="text-2xl font-bold text-white">University of Texas (Planned)</h3>
-            <p className="text-xl text-gray-300">PhD in Physics, Specializing in Quantum Physics and Computing</p>
-            <p className="text-lg text-gray-400">Expected Start: 2026</p>
+        </motion.div>
+      </motion.section>
+
+      {/* Awards and Certifications Section */}
+      <motion.section
+        className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-lg shadow-xl p-8 mb-8 border border-gray-800/50"
+        variants={fadeInLeftVariants}
+        whileHover={{ scale: 1.01 }}
+      >
+        <h2 className="text-3xl font-bold text-white mb-6">Awards & Achievements</h2>
+        <motion.div variants={fadeInLeftVariants}>
+          <div className="space-y-6">
+            {/* EthAtlanta Hackathon */}
+            <div className="mb-6">
+              <h3 className="text-2xl font-bold text-white">First Place Winner - EthAtlanta Ethereum Enterprise Hackathon</h3>
+              <p className="text-lg text-gray-400">Oct 1-3, 2021</p>
+              <p className="text-gray-300">Winner among 60+ teams</p>
+            </div>
+
+            {/* GM Geek Week */}
+            <div className="mb-6">
+              <h3 className="text-2xl font-bold text-white">First Place Winner - Google Sponsored GM Geek Week Top-Coder Challenge</h3>
+              <p className="text-lg text-gray-400">Sep 16, 2021</p>
+              <p className="text-gray-300">Company-wide competition with 200+ participants</p>
+            </div>
+
+            {/* Oracle Certification */}
+            <div className="mb-6">
+              <h3 className="text-2xl font-bold text-white">Oracle Certified Associate</h3>
+              <p className="text-xl text-gray-300">1z0-808 Java SE 8 Programmer I</p>
+              <p className="text-lg text-gray-400">Aug 20, 2020</p>
+            </div>
+
+            {/* Blockchain Certifications */}
+            <div className="mb-6">
+              <h3 className="text-2xl font-bold text-white">Certified Blockchain Architect, Solidity & Smart Contract Developer</h3>
+              <p className="text-xl text-gray-300">Blockchain Council</p>
+              <p className="text-lg text-gray-400">Oct 10, 16, and 26, 2021</p>
+            </div>
           </div>
         </motion.div>
       </motion.section>
@@ -74,4 +99,4 @@ const Education = () => {
   );
 };
 
-export default Education; 
+export default Education;

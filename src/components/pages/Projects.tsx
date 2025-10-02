@@ -3,65 +3,56 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { staggerContainerVariants, fadeInUpVariants } from '@/lib/animations';
 
 const Projects = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const projectVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100
-      }
-    }
-  };
 
   const projects = [
     {
       title: "1st Place Hackathon Winner - EthAtlanta",
       description: "Placed 1st in the Eth Atl Hackathon. Economic Empowerment. Oct 2021 - Present · 3 yrs 7 mos.",
       link: "https://ethatl.com",
+      available: true,
       technologies: ["Ethereum", "Solidity", "Hackathon", "Economic Empowerment"]
     },
     {
       title: "1st Place Geek Week Top Coder Challenge Winner - General Motors",
       description: "Placed 1st in the General Motors Geek Week Top Coder Challenge. Sep 2021 - Present · 3 yrs 8 mos.",
-      link: "#",
+      link: null,
+      available: false,
+      badge: "Private/Proprietary",
       technologies: ["General Motors", "Top Coder", "Hackathon"]
     },
     {
       title: "Supervised Learning Algorithms for Classification",
       description: "Explored k-Nearest Neighbors (KNN), Neural Networks (NN), and Support Vector Machines (SVM) on the Avila Bible and Stellar Classification datasets. For Stellar Classification, NN and SVM outperformed KNN (96.5%, 96.0%, 88.5%). For Avila Bible, NN outperformed KNN and SVM (97.5%, 78%, 80%). Highlights the importance of algorithm selection and tuning for different data types.",
-      link: "#",
+      link: null,
+      available: false,
+      badge: "Academic Project",
       technologies: ["Python", "Scikit-learn", "Neural Networks", "SVM", "KNN", "Data Science", "Machine Learning"]
     },
     {
       title: "Randomized Optimization for Machine Learning",
       description: "Behavioral exploration of Randomized Optimization (RO) search algorithms: Simulated Annealing (SA), Random Hill Climbing (RHC), and Genetic Algorithm (GA) applied to the Four Peaks and Knapsack problems, and Neural Network (NN) weight optimization. Analyzed performance metrics such as fitness, loss, accuracy, wall clock time, iterations, and fitness evaluations across tuned hyperparameters, problem sizes, and convergence criteria.",
-      link: "#",
+      link: null,
+      available: false,
+      badge: "Academic Project",
       technologies: ["Python", "Simulated Annealing", "Random Hill Climbing", "Genetic Algorithm", "Neural Networks", "Optimization", "Machine Learning"]
     },
     {
       title: "Unsupervised Learning & Dimensionality Reduction",
       description: "Analysis of high dimensionality datasets using clustering algorithms (K-Means, Expectation Maximization) and linear dimensionality reduction methods (PCA, ICA, Random Projection). Explored natural groupings and computational complexity on the Avila Bible manuscript and Stellar datasets. Evaluated the impact of reduction and clustering techniques on data characteristics and Neural Network (NN) training outcomes.",
-      link: "#",
+      link: null,
+      available: false,
+      badge: "Academic Project",
       technologies: ["Python", "K-Means", "Expectation Maximization", "PCA", "ICA", "Random Projection", "Clustering", "Dimensionality Reduction", "Neural Networks", "Machine Learning"]
     },
     {
       title: "Markov Decision Process & Reinforcement Learning",
       description: "Systematic exploration of model-based (Value Iteration, Policy Iteration) and model-free (Q-learning, SARSA) RL algorithms on Markov Decision Processes (MDPs): Blackjack (discrete, stochastic) and CartPole (continuous, adaptive discretization). Analyzed trade-offs in state space, reward structure, convergence, policy stability, and learning efficiency. Provided practical insights for algorithm selection, parameter tuning, and the impact of discretization granularity and reward structure on RL performance.",
-      link: "#",
+      link: null,
+      available: false,
+      badge: "Academic Project",
       technologies: ["Python", "Reinforcement Learning", "Markov Decision Process", "Value Iteration", "Policy Iteration", "Q-learning", "SARSA", "Blackjack", "CartPole", "Machine Learning"]
     }
   ];
@@ -69,7 +60,7 @@ const Projects = () => {
   return (
     <motion.div
       className="w-full"
-      variants={containerVariants}
+      variants={staggerContainerVariants}
       initial="hidden"
       animate="visible"
     >
@@ -77,9 +68,9 @@ const Projects = () => {
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            className="bg-transparent rounded-lg shadow-xl overflow-hidden"
-            variants={projectVariants}
-            whileHover={{ 
+            className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-lg shadow-xl overflow-hidden border border-gray-800/50"
+            variants={fadeInUpVariants}
+            whileHover={{
               scale: 1.02,
               transition: { duration: 0.2 }
             }}
@@ -98,33 +89,58 @@ const Projects = () => {
               <div className="h-48 bg-transparent"></div>
             )}
             <div className="p-6">
-              <motion.h2 
-                className="text-2xl font-semibold mb-2 text-white"
-                whileHover={{ color: "#60A5FA" }}
-              >
-                {project.title}
-              </motion.h2>
+              <div className="flex items-start justify-between mb-2">
+                <motion.h2
+                  className="text-2xl font-semibold text-white flex-1"
+                  whileHover={{ color: "#60A5FA" }}
+                >
+                  {project.title}
+                </motion.h2>
+                {project.badge && (
+                  <span className="ml-2 px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-xs font-medium whitespace-nowrap">
+                    {project.badge}
+                  </span>
+                )}
+              </div>
               <p className="text-gray-300 mb-4">{project.description}</p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.technologies.map((tech, techIndex) => (
                   <motion.span
                     key={techIndex}
                     className="px-3 py-1 bg-transparent text-blue-200 rounded-full text-sm border border-blue-200"
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: "rgba(59, 130, 246, 0.1)",
+                      borderColor: "#60A5FA"
+                    }}
                     whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.2 }}
                   >
                     {tech}
                   </motion.span>
                 ))}
               </div>
-              <motion.a
-                href={project.link}
-                className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                View Project
-              </motion.a>
+              {project.available && project.link ? (
+                <motion.a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label={`View ${project.title}`}
+                >
+                  View Project
+                </motion.a>
+              ) : (
+                <button
+                  disabled
+                  className="inline-block bg-gray-700 text-gray-400 px-4 py-2 rounded cursor-not-allowed opacity-60"
+                  aria-label={`${project.title} - Not publicly available`}
+                >
+                  Not Available
+                </button>
+              )}
             </div>
           </motion.div>
         ))}
