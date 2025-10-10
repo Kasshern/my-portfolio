@@ -18,13 +18,7 @@ const Experience = () => {
         variants={fadeInLeftVariants}
         whileHover={{
           scale: 1.01,
-          rotateX: 1,
-          rotateY: 1,
           transition: { duration: 0.3, ease: "easeOut" }
-        }}
-        style={{
-          transformStyle: 'preserve-3d',
-          perspective: '1000px'
         }}
       >
         {/* ConsenSys Mesh - Research Scientist & Lead Developer */}

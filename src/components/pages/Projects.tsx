@@ -72,15 +72,9 @@ const Projects = () => {
             variants={fadeInUpVariants}
             whileHover={{
               scale: 1.02,
-              rotateX: 2,
-              rotateY: 2,
               transition: { duration: 0.3, ease: "easeOut" }
             }}
             whileTap={{ scale: 0.98 }}
-            style={{
-              transformStyle: 'preserve-3d',
-              perspective: '1000px'
-            }}
           >
             {/* Project image */}
             {project.title.includes('Geek Week Top Coder') ? (
