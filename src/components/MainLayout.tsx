@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { NavigationProvider } from './NavigationContext';
+import AmbientLighting from './AmbientLighting';
 import Home from './pages/Home';
 
 type PageType = 'home' | 'experience' | 'education' | 'skills' | 'projects' | 'videos' | 'contact';
@@ -55,7 +56,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ initialPage }) => {
 
   return (
     <NavigationProvider navigateToPage={navigateToPage} currentPage={currentPage}>
-      <div className="min-h-screen bg-black">
+      <div className="min-h-screen bg-black relative">
+        <AmbientLighting />
         <Home />
       </div>
     </NavigationProvider>
