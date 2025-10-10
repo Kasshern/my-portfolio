@@ -9,7 +9,8 @@ import { useNavigation } from './NavigationContext';
  * Creates immersive atmosphere with animated gradient mesh
  */
 const AmbientLighting: React.FC = () => {
-  const { currentPage } = useNavigation();
+  const navigation = useNavigation();
+  const currentPage = navigation?.currentPage || 'home';
 
   // Page-specific color schemes
   const pageColors = {
