@@ -160,7 +160,7 @@ const FloatingGlowEffect: React.FC<{
         }
       }}
     >
-      {/* Glowing orb with trail */}
+      {/* Glowing orb with enhanced trail */}
       <motion.div
         className="relative"
         animate={{
@@ -172,13 +172,78 @@ const FloatingGlowEffect: React.FC<{
           ease: "easeInOut"
         }}
       >
+        {/* Glow trail effect */}
+        <motion.div
+          className="absolute inset-0"
+          style={{
+            width: '60px',
+            height: '60px',
+            left: '-26px',
+            top: '-26px',
+          }}
+          animate={{
+            opacity: [0.4, 0.6, 0.4],
+            scale: [1, 1.3, 1],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <div
+            className="w-full h-full rounded-full"
+            style={{
+              background: `radial-gradient(circle at center, ${glowColor}60, ${glowColor}20, transparent)`,
+              filter: 'blur(12px)'
+            }}
+          />
+        </motion.div>
+
+        {/* Main orb */}
         <div
-          className="w-8 h-8 rounded-full"
+          className="w-8 h-8 rounded-full relative z-10"
           style={{
             background: `radial-gradient(circle at center, ${glowColor}, ${glowColor}00)`,
-            boxShadow: `0 0 30px ${glowColor}, 0 0 60px ${glowColor}80`
+            boxShadow: `0 0 30px ${glowColor}, 0 0 60px ${glowColor}80, 0 0 90px ${glowColor}40`
           }}
         />
+
+        {/* Particle sparkles */}
+        <motion.div
+          className="absolute -inset-2"
+          animate={{
+            rotate: 360
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        >
+          {[0, 120, 240].map((angle) => (
+            <motion.div
+              key={angle}
+              className="absolute w-1 h-1 rounded-full"
+              style={{
+                left: `calc(50% + ${Math.cos(angle * Math.PI / 180) * 20}px)`,
+                top: `calc(50% + ${Math.sin(angle * Math.PI / 180) * 20}px)`,
+                background: glowColor,
+                boxShadow: `0 0 4px ${glowColor}`
+              }}
+              animate={{
+                opacity: [0.3, 1, 0.3],
+                scale: [0.5, 1, 0.5]
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: angle / 360
+              }}
+            />
+          ))}
+        </motion.div>
       </motion.div>
 
       {/* Floating label */}

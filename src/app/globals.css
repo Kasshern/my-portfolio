@@ -329,6 +329,14 @@ html {
   }
 }
 
+/* Performance Optimizations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
 /* Advanced Glassmorphism System - 2025 */
 .glass-card-strong {
   background: var(--glass-strong);
@@ -339,6 +347,8 @@ html {
     0 8px 32px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.06),
     0 0 0 1px rgba(255, 255, 255, 0.02);
+  transform: translateZ(0);
+  will-change: transform, opacity;
 }
 
 .glass-card-medium {
@@ -349,6 +359,8 @@ html {
   box-shadow:
     0 4px 16px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transform: translateZ(0);
+  will-change: transform, opacity;
 }
 
 .glass-card-light {
@@ -357,6 +369,7 @@ html {
   -webkit-backdrop-filter: blur(12px) saturate(120%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: translateZ(0);
 }
 
 .glass-card-subtle {
@@ -364,6 +377,7 @@ html {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.06);
+  transform: translateZ(0);
 }
 
 /* 3D Card Hover Effect */
