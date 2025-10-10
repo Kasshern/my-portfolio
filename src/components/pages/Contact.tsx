@@ -73,7 +73,7 @@ const Contact = () => {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative block w-full text-center text-lg sm:text-xl md:text-2xl font-semibold text-[#A5B4FC] bg-[#1A1A1A] rounded-lg py-3 sm:py-4 shadow-lg hover:bg-[#6366F1] hover:text-white hover:shadow-[0_0_30px_rgba(99,102,241,0.3)] transition-all focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:ring-offset-2 focus:ring-offset-[#0F0F0F] overflow-hidden border border-[rgba(255,255,255,0.1)]"
+              className="relative block w-full text-center text-lg sm:text-xl md:text-2xl font-semibold text-[#A5B4FC] glass-card-medium rounded-lg py-3 sm:py-4 shadow-lg hover:bg-[#6366F1] hover:text-white hover:shadow-[0_0_30px_rgba(99,102,241,0.3)] transition-all focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:ring-offset-2 focus:ring-offset-[#0F0F0F] overflow-hidden"
               aria-label={`Contact via ${link.label}: ${link.displayText || link.label}`}
               onClick={(e) => handleRipple(e, idx)}
               whileHover={{ scale: 1.02 }}
@@ -105,7 +105,7 @@ const Contact = () => {
             {link.copyText && (
               <motion.button
                 onClick={(e) => handleCopy(link.copyText!, idx, e)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-md bg-[#171717] hover:bg-[#8B5CF6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#6366F1] border border-[rgba(255,255,255,0.1)]"
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-md glass-card-light hover:bg-[#8B5CF6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#6366F1]"
                 aria-label={`Copy ${link.label} to clipboard`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}

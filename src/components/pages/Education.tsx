@@ -13,17 +13,17 @@ const Education = () => {
       animate="visible"
     >
       <motion.section
-        className="bg-[rgba(26,26,26,0.6)] backdrop-blur-xl rounded-2xl shadow-2xl p-8 md:p-12 mb-12 border border-[rgba(255,255,255,0.1)]"
-        style={{
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
-        }}
+        className="glass-card-strong rounded-2xl p-8 md:p-12 mb-12"
         variants={fadeInLeftVariants}
-        whileHover={{ scale: 1.01 }}
+        whileHover={{
+          scale: 1.01,
+          transition: { duration: 0.3, ease: "easeOut" }
+        }}
       >
         <motion.div variants={fadeInLeftVariants}>
           {/* Georgia Institute of Technology */}
           <div className="mb-12">
-            <h3 className="text-3xl font-bold text-white mb-2" style={{ letterSpacing: '-0.01em' }}>Georgia Institute of Technology</h3>
+            <h3 className="text-3xl font-bold mb-2 gradient-text" style={{ letterSpacing: '-0.01em' }}>Georgia Institute of Technology</h3>
             <p className="text-xl text-[#E5E5E5]">Master of Science - MS, Computer Science (Machine Learning)</p>
             <p className="text-lg text-[#A3A3A3]">Jan 2024 - Expected 2026</p>
             <p className="text-lg text-[#A3A3A3]">GPA: 4.0 (in progress)</p>
@@ -61,14 +61,14 @@ const Education = () => {
 
       {/* Awards and Certifications Section */}
       <motion.section
-        className="bg-[rgba(26,26,26,0.6)] backdrop-blur-xl rounded-2xl shadow-2xl p-8 mb-8 border border-[rgba(255,255,255,0.1)]"
-        style={{
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
-        }}
+        className="glass-card-strong rounded-2xl p-8 mb-8"
         variants={fadeInLeftVariants}
-        whileHover={{ scale: 1.01 }}
+        whileHover={{
+          scale: 1.01,
+          transition: { duration: 0.3, ease: "easeOut" }
+        }}
       >
-        <h2 className="text-3xl font-bold text-white mb-6">Awards & Achievements</h2>
+        <h2 className="text-3xl font-bold mb-6 gradient-text">Awards & Achievements</h2>
         <motion.div variants={fadeInLeftVariants}>
           <div className="space-y-6">
             {/* EthAtlanta Hackathon */}

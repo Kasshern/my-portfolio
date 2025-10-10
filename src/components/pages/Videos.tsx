@@ -14,14 +14,17 @@ const Videos = () => {
         transition={{ delay: 0.4 }}
       >
         {/* First Video */}
-        <motion.div 
-          className="w-full max-w-4xl"
+        <motion.div
+          className="w-full max-w-4xl glass-card-medium rounded-2xl p-6"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          whileHover={{ scale: 1.02 }}
+          whileHover={{
+            scale: 1.02,
+            transition: { duration: 0.3, ease: "easeOut" }
+          }}
         >
-          <div className="bg-transparent rounded-lg shadow-xl p-6">
+          <div className="rounded-lg">
             <div className="aspect-video mb-4">
               <iframe
                 src="https://www.youtube.com/embed/cDMtthZtDM8"
@@ -39,14 +42,17 @@ const Videos = () => {
         </motion.div>
 
         {/* Second Video */}
-        <motion.div 
-          className="w-full max-w-4xl"
+        <motion.div
+          className="w-full max-w-4xl glass-card-medium rounded-2xl p-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          whileHover={{ scale: 1.02 }}
+          whileHover={{
+            scale: 1.02,
+            transition: { duration: 0.3, ease: "easeOut" }
+          }}
         >
-          <div className="bg-transparent rounded-lg shadow-xl p-6">
+          <div className="rounded-lg">
             <div className="aspect-video mb-4">
               <iframe
                 src="https://www.youtube.com/embed/iux260GVERs"
