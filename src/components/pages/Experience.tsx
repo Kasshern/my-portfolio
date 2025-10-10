@@ -32,7 +32,7 @@ const Experience = () => {
           {/* Timeline dot */}
           <div className="absolute left-[-9px] top-2 w-4 h-4 rounded-full bg-[#6366F1]" style={{ boxShadow: '0 0 20px rgba(99, 102, 241, 0.6)' }} />
 
-          <h3 className="text-3xl font-bold text-white mb-3" style={{ letterSpacing: '-0.01em' }}>Research Scientist & Lead Developer</h3>
+          <h3 className="text-3xl font-bold mb-3 gradient-text" style={{ letterSpacing: '-0.01em' }}>Research Scientist & Lead Developer</h3>
           <p className="text-xl text-[#E5E5E5] font-semibold mb-1">ConsenSys Mesh · Full-time</p>
           <p className="text-lg text-[#A3A3A3] mb-1">Feb 2022 - Present</p>
           <p className="text-lg text-[#A3A3A3] mb-4">Austin, Texas, United States</p>
