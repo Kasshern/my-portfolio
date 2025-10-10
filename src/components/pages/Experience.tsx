@@ -14,12 +14,18 @@ const Experience = () => {
       animate="visible"
     >
       <motion.section
-        className="bg-[rgba(26,26,26,0.6)] backdrop-blur-xl rounded-2xl shadow-2xl p-8 md:p-12 mb-12 border border-[rgba(255,255,255,0.1)]"
-        style={{
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
-        }}
+        className="glass-card-strong rounded-2xl p-8 md:p-12 mb-12"
         variants={fadeInLeftVariants}
-        whileHover={{ scale: 1.01 }}
+        whileHover={{
+          scale: 1.01,
+          rotateX: 1,
+          rotateY: 1,
+          transition: { duration: 0.3, ease: "easeOut" }
+        }}
+        style={{
+          transformStyle: 'preserve-3d',
+          perspective: '1000px'
+        }}
       >
         {/* ConsenSys Mesh - Research Scientist & Lead Developer */}
         <motion.div className="mb-12 last:mb-0 relative pl-8 border-l-2 border-[#6366F1]" whileHover={{ x: 10 }}>

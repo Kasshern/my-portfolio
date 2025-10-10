@@ -68,16 +68,19 @@ const Projects = () => {
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            className="bg-[rgba(26,26,26,0.6)] backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-[rgba(255,255,255,0.1)]"
-            style={{
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
-            }}
+            className="glass-card-strong rounded-2xl overflow-hidden"
             variants={fadeInUpVariants}
             whileHover={{
               scale: 1.02,
-              transition: { duration: 0.2 }
+              rotateX: 2,
+              rotateY: 2,
+              transition: { duration: 0.3, ease: "easeOut" }
             }}
             whileTap={{ scale: 0.98 }}
+            style={{
+              transformStyle: 'preserve-3d',
+              perspective: '1000px'
+            }}
           >
             {/* Project image */}
             {project.title.includes('Geek Week Top Coder') ? (
