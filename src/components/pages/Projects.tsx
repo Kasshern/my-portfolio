@@ -101,6 +101,30 @@ const Projects = () => {
                 height={192}
                 className="h-48 w-full object-cover bg-transparent"
               />
+            ) : project.title.includes('Randomized Optimization') ? (
+              <Image
+                src="/randomized_optimization.png"
+                alt="Randomized Optimization for Machine Learning"
+                width={400}
+                height={192}
+                className="h-48 w-full object-cover bg-transparent"
+              />
+            ) : project.title.includes('Unsupervised Learning') ? (
+              <Image
+                src="/unsupervised_learning.png"
+                alt="Unsupervised Learning & Dimensionality Reduction"
+                width={400}
+                height={192}
+                className="h-48 w-full object-cover bg-transparent"
+              />
+            ) : project.title.includes('Markov Decision Process') ? (
+              <Image
+                src="/markov_decision.png"
+                alt="Markov Decision Process & Reinforcement Learning"
+                width={400}
+                height={192}
+                className="h-48 w-full object-cover bg-transparent"
+              />
             ) : (
               <div className="h-48 bg-transparent"></div>
             )}

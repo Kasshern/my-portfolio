@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigation } from './NavigationContext';
 
 interface NavLink {
@@ -29,6 +29,7 @@ interface FloatingFlame {
 
 interface ProfileNavigationProps {
   onNavigate?: (page: PageType) => void;
+  onHoverChange?: (isHovered: boolean) => void;
 }
 
 // Orbital Glow Ring effect component
@@ -365,7 +366,7 @@ const calculatePositions = (isMobile: boolean) => {
   });
 };
 
-const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => {
+const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate, onHoverChange }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -383,6 +384,13 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Notify parent component of hover state changes
+  useEffect(() => {
+    if (onHoverChange) {
+      onHoverChange(isHovered);
+    }
+  }, [isHovered, onHoverChange]);
 
 
 
@@ -406,23 +414,45 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
   const handleLinkClick = (href: string) => {
     // Extract page name from href (remove leading slash)
     const pageName = (href === '/' ? 'home' : href.slice(1)) as PageType;
-    
+
     // Find the clicked link to get its position and color
     const clickedLink = positionedLinks.find(link => link.href === href);
     const navLink = navLinks.find(link => link.href === href);
+
     if (clickedLink && navLink && pageName !== 'home') {
-      // Start floating flame animation
-      setFloatingFlame({
-        isFloating: true,
-        targetPage: pageName,
-        originalPosition: { x: clickedLink.x, y: clickedLink.y },
-        currentPosition: { x: clickedLink.x, y: clickedLink.y },
-        journeyState: 'departing',
-        linkLabel: navLink.label,
-        linkColor: navLink.flameColor
-      });
+      // If there's already a floating flame, return it first before creating a new one
+      if (floatingFlame) {
+        setFloatingFlame(prev => prev ? {
+          ...prev,
+          journeyState: 'returning'
+        } : null);
+
+        // Wait for the return animation to complete before creating new flame
+        setTimeout(() => {
+          setFloatingFlame({
+            isFloating: true,
+            targetPage: pageName,
+            originalPosition: { x: clickedLink.x, y: clickedLink.y },
+            currentPosition: { x: clickedLink.x, y: clickedLink.y },
+            journeyState: 'departing',
+            linkLabel: navLink.label,
+            linkColor: navLink.flameColor
+          });
+        }, 800); // Match the return animation duration
+      } else {
+        // No existing floating flame, create new one immediately
+        setFloatingFlame({
+          isFloating: true,
+          targetPage: pageName,
+          originalPosition: { x: clickedLink.x, y: clickedLink.y },
+          currentPosition: { x: clickedLink.x, y: clickedLink.y },
+          journeyState: 'departing',
+          linkLabel: navLink.label,
+          linkColor: navLink.flameColor
+        });
+      }
     }
-    
+
     // Use the callback if provided, otherwise use the context
     if (onNavigate) {
       onNavigate(pageName);
@@ -472,50 +502,30 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
           }}
         />
       )}
-      {/* Profile Picture Container with gradient border */}
+      {/* Profile Picture Container */}
       <motion.div
-        className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl flex items-center justify-center cursor-pointer transition-transform duration-300 hover:scale-105"
-        style={{
-          background: 'linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899)',
-          padding: '3px',
-        }}
+        className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-80 md:h-80 rounded-full overflow-visible flex items-center justify-center cursor-pointer"
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
-        animate={isVisible ? { 
+        animate={isVisible ? {
           scale: 1,
           opacity: 1
-        } : { 
+        } : {
           scale: 1,
           opacity: 1
         }}
-        transition={{ 
+        transition={{
           duration: 0.2,
-          ease: 'easeOut' 
+          ease: 'easeOut'
         }}
       >
         {/* Profile Picture with Particle Effect */}
         <motion.div
-          className="w-full h-full rounded-full overflow-visible bg-gray-800 relative"
+          className="w-full h-full rounded-full overflow-visible relative"
+          style={{
+            background: 'radial-gradient(circle at center, rgba(15, 15, 15, 0.8), rgba(15, 15, 15, 0.95))'
+          }}
         >
-          {/* Base Image with filter */}
-          <motion.div
-            className="w-full h-full rounded-full overflow-hidden relative"
-            animate={{
-              filter: isHovered
-                ? 'brightness(1) contrast(1)'
-                : 'brightness(0.7) contrast(1.2)',
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            <Image
-              src="/ai_keith.jpg"
-              alt="Keith A. Salzman - Computer Scientist and Machine Learning Researcher"
-              width={320}
-              height={320}
-              className="object-cover w-full h-full"
-              priority
-            />
-          </motion.div>
 
           {/* Particle Dispersion Effect Overlay */}
           <motion.div
@@ -546,12 +556,7 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
                     top: '50%',
                     transform: 'translate(-50%, -50%)',
                   }}
-                  animate={isHovered ? {
-                    x: 0,
-                    y: 0,
-                    opacity: 0,
-                    scale: 0.3,
-                  } : {
+                  animate={{
                     x: [0, x * 0.6, x, x * 0.6, 0],
                     y: [0, y * 0.6, y, y * 0.6, 0],
                     opacity: [0, 0.6, 1, 0.6, 0],
@@ -576,10 +581,7 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
                   border: `2px solid rgba(99, 102, 241, ${0.3 / ring})`,
                   boxShadow: `0 0 ${20 * ring}px rgba(99, 102, 241, ${0.4 / ring})`,
                 }}
-                animate={isHovered ? {
-                  scale: 1,
-                  opacity: 0,
-                } : {
+                animate={{
                   scale: [1, 1 + ring * 0.15, 1],
                   opacity: [0.4, 0.7, 0.4],
                 }}
@@ -598,10 +600,7 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
               style={{
                 background: 'linear-gradient(135deg, transparent 20%, rgba(99, 102, 241, 0.2) 50%, transparent 80%)',
               }}
-              animate={isHovered ? {
-                rotate: 0,
-                opacity: 0,
-              } : {
+              animate={{
                 rotate: 360,
                 opacity: [0.5, 0.8, 0.5],
               }}
@@ -751,23 +750,52 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
               }}
               aria-label={`Navigate to ${link.label} page`}
             >
+              {/* Glow orb behind text */}
               <motion.div
-                className={`text-white text-base md:text-xl lg:text-2xl font-medium whitespace-nowrap cursor-pointer ${colorClasses[flameColor as keyof typeof colorClasses]}`}
+                className="absolute inset-0"
                 style={{
-                  ...fireAnimations[flameColor as keyof typeof fireAnimations],
+                  background: `radial-gradient(circle, ${fireAnimations[flameColor as keyof typeof fireAnimations].textShadow.split(' ')[3]?.replace(/,.*/, '')}60, transparent 70%)`,
+                  filter: 'blur(10px)',
                 }}
                 animate={{
-                  scale: [1, 1.05, 1],
-                  opacity: [0.9, 1, 0.9]
+                  scale: [1, 1.3, 1],
+                  opacity: [0.4, 0.7, 0.4],
                 }}
                 transition={{
                   duration: 2,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                aria-hidden="true"
+              />
+
+              {/* Flame text with enhanced effects */}
+              <motion.div
+                className="relative"
+                whileHover={{
+                  scale: 1.15,
+                  transition: { duration: 0.2 }
+                }}
               >
-                {link.label}
+                <motion.div
+                  className={`text-white text-base md:text-xl lg:text-2xl font-bold whitespace-nowrap cursor-pointer ${colorClasses[flameColor as keyof typeof colorClasses]}`}
+                  style={{
+                    ...fireAnimations[flameColor as keyof typeof fireAnimations],
+                    filter: 'drop-shadow(0 0 8px currentColor)',
+                  }}
+                  animate={{
+                    scale: [1, 1.08, 1],
+                    opacity: [0.85, 1, 0.85],
+                    y: [0, -2, 0],
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  aria-hidden="true"
+                >
+                  {link.label}
+                </motion.div>
               </motion.div>
             </motion.div>
           );
