@@ -58,49 +58,6 @@ const Education = () => {
           </div>
         </motion.div>
       </motion.section>
-
-      {/* Awards and Certifications Section */}
-      <motion.section
-        className="glass-card-strong rounded-2xl p-8 mb-8"
-        variants={fadeInLeftVariants}
-        whileHover={{
-          scale: 1.01,
-          transition: { duration: 0.3, ease: "easeOut" }
-        }}
-      >
-        <h2 className="text-3xl font-bold mb-6 gradient-text">Awards & Achievements</h2>
-        <motion.div variants={fadeInLeftVariants}>
-          <div className="space-y-6">
-            {/* EthAtlanta Hackathon */}
-            <div className="mb-6">
-              <h3 className="text-2xl font-bold text-white">First Place Winner - EthAtlanta Ethereum Enterprise Hackathon</h3>
-              <p className="text-lg text-gray-400">Oct 1-3, 2021</p>
-              <p className="text-gray-300">Winner among 60+ teams</p>
-            </div>
-
-            {/* GM Geek Week */}
-            <div className="mb-6">
-              <h3 className="text-2xl font-bold text-white">First Place Winner - Google Sponsored GM Geek Week Top-Coder Challenge</h3>
-              <p className="text-lg text-gray-400">Sep 16, 2021</p>
-              <p className="text-gray-300">Company-wide competition with 200+ participants</p>
-            </div>
-
-            {/* Oracle Certification */}
-            <div className="mb-6">
-              <h3 className="text-2xl font-bold text-white">Oracle Certified Associate</h3>
-              <p className="text-xl text-gray-300">1z0-808 Java SE 8 Programmer I</p>
-              <p className="text-lg text-gray-400">Aug 20, 2020</p>
-            </div>
-
-            {/* Blockchain Certifications */}
-            <div className="mb-6">
-              <h3 className="text-2xl font-bold text-white">Certified Blockchain Architect, Solidity & Smart Contract Developer</h3>
-              <p className="text-xl text-gray-300">Blockchain Council</p>
-              <p className="text-lg text-gray-400">Oct 10, 16, and 26, 2021</p>
-            </div>
-          </div>
-        </motion.div>
-      </motion.section>
     </motion.div>
   );
 };

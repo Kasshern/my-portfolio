@@ -77,13 +77,29 @@ const Projects = () => {
             whileTap={{ scale: 0.98 }}
           >
             {/* Project image */}
-            {project.title.includes('Geek Week Top Coder') ? (
-              <Image 
-                src="/top_coder.png" 
-                alt="Top Coder Challenge Winner" 
+            {project.title.includes('EthAtlanta') ? (
+              <Image
+                src="/eth_atlanta.png"
+                alt="EthAtlanta Hackathon Winner"
                 width={400}
                 height={192}
-                className="h-48 w-full object-contain bg-transparent" 
+                className="h-48 w-full object-cover bg-transparent"
+              />
+            ) : project.title.includes('Geek Week Top Coder') ? (
+              <Image
+                src="/top_coder.png"
+                alt="Top Coder Challenge Winner"
+                width={400}
+                height={192}
+                className="h-48 w-full object-cover bg-transparent"
+              />
+            ) : project.title.includes('Supervised Learning') ? (
+              <Image
+                src="/supervised_learning.png"
+                alt="Supervised Learning Algorithms"
+                width={400}
+                height={192}
+                className="h-48 w-full object-cover bg-transparent"
               />
             ) : (
               <div className="h-48 bg-transparent"></div>

@@ -53,19 +53,6 @@ const Contact = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
     >
-      {/* Resume Download Link */}
-      <div className="mb-8 text-center">
-        <motion.a
-          href="/resume"
-          className="inline-block bg-gradient-to-r from-[#6366F1] via-[#8B5CF6] to-[#EC4899] text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-lg hover:shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:ring-offset-2 focus:ring-offset-[#0F0F0F]"
-          aria-label="View full resume page"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          📄 View Full Resume
-        </motion.a>
-      </div>
-
       <ul className="space-y-6" role="list">
         {links.map((link, idx) => (
           <li key={idx} className="relative">

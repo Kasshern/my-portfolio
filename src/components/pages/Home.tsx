@@ -78,7 +78,7 @@ const Home = () => {
             Keith A. Salzman
           </h1>
           <p className="text-xl sm:text-2xl md:text-3xl text-[#E5E5E5] font-medium tracking-wide">
-            Research Scientist & ML Engineer
+            Blockchain and Machine Learning Engineer
           </p>
         </motion.div>
 

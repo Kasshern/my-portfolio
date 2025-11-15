@@ -125,7 +125,8 @@ const FloatingGlowEffect: React.FC<{
   flame: FloatingFlame;
   color: string;
   onAnchorComplete: () => void;
-}> = ({ flame, color, onAnchorComplete }) => {
+  onReturnHome?: () => void;
+}> = ({ flame, color, onAnchorComplete, onReturnHome }) => {
   const glowColors = {
     red: '#EF4444',
     blue: '#6366F1',
@@ -138,20 +139,50 @@ const FloatingGlowEffect: React.FC<{
 
   const glowColor = glowColors[color as keyof typeof glowColors] || glowColors.blue;
 
+  const handleClick = () => {
+    if (flame.journeyState === 'anchored' && onReturnHome) {
+      onReturnHome();
+    }
+  };
+
+  // Calculate target position based on journey state
+  const getTargetPosition = () => {
+    if (flame.journeyState === 'returning') {
+      // Return to original position around portrait
+      return {
+        left: `calc(50% + ${flame.originalPosition.x}px)`,
+        top: `calc(50% + ${flame.originalPosition.y}px)`,
+      };
+    } else if (flame.journeyState === 'anchored') {
+      // Stay in top-left corner
+      return {
+        left: '60px',
+        top: '60px',
+      };
+    } else {
+      // Departing - move to top-left corner
+      return {
+        left: '60px',
+        top: '60px',
+      };
+    }
+  };
+
+  const targetPosition = getTargetPosition();
+
   return (
     <motion.div
-      className="fixed z-50 pointer-events-none flex items-center justify-center"
+      className={`fixed z-50 flex items-center justify-center ${flame.journeyState === 'anchored' ? 'pointer-events-auto cursor-pointer' : 'pointer-events-none'}`}
       style={{
         left: `calc(50% + ${flame.currentPosition.x}px)`,
         top: `calc(50% + ${flame.currentPosition.y}px)`,
       }}
       animate={{
-        left: '60px',
-        top: '60px',
-        opacity: flame.journeyState === 'anchored' ? 1 : 1,
+        ...targetPosition,
+        opacity: flame.journeyState === 'returning' ? 0 : 1,
       }}
       transition={{
-        duration: 1.0,
+        duration: flame.journeyState === 'returning' ? 0.8 : 1.0,
         ease: "easeInOut"
       }}
       onAnimationComplete={() => {
@@ -159,6 +190,9 @@ const FloatingGlowEffect: React.FC<{
           onAnchorComplete();
         }
       }}
+      onClick={handleClick}
+      whileHover={flame.journeyState === 'anchored' ? { scale: 1.1 } : {}}
+      whileTap={flame.journeyState === 'anchored' ? { scale: 0.95 } : {}}
     >
       {/* Glowing orb with enhanced trail */}
       <motion.div
@@ -421,6 +455,21 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
               journeyState: 'anchored'
             } : null);
           }}
+          onReturnHome={() => {
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Navigate to home
+            navigateToPage('home');
+            // Set flame to returning state to trigger return animation
+            setFloatingFlame(prev => prev ? {
+              ...prev,
+              journeyState: 'returning'
+            } : null);
+            // Clear the floating flame after animation completes
+            setTimeout(() => {
+              setFloatingFlame(null);
+            }, 800); // Match the return animation duration
+          }}
         />
       )}
       {/* Profile Picture Container with gradient border */}
@@ -444,81 +493,132 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
           ease: 'easeOut' 
         }}
       >
-        {/* Gradient Glow Effect (shown when profile is hidden) */}
+        {/* Profile Picture with Particle Effect */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center"
-          animate={isVisible ? {
-            opacity: 0
-          } : {
-            opacity: 1
-          }}
-          transition={{
-            duration: 0.2,
-            ease: 'easeOut'
-          }}
+          className="w-full h-full rounded-full overflow-visible bg-gray-800 relative"
         >
-          {/* Pulsing gradient orb */}
+          {/* Base Image with filter */}
           <motion.div
-            className="relative w-24 h-24"
+            className="w-full h-full rounded-full overflow-hidden relative"
             animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.8, 1, 0.8]
+              filter: isHovered
+                ? 'brightness(1) contrast(1)'
+                : 'brightness(0.7) contrast(1.2)',
             }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+            transition={{ duration: 0.3 }}
           >
-            <div
-              className="w-full h-full rounded-full"
+            <Image
+              src="/ai_keith.jpg"
+              alt="Keith A. Salzman - Computer Scientist and Machine Learning Researcher"
+              width={320}
+              height={320}
+              className="object-cover w-full h-full"
+              priority
+            />
+          </motion.div>
+
+          {/* Particle Dispersion Effect Overlay */}
+          <motion.div
+            className="absolute inset-0"
+            style={{ pointerEvents: 'none', overflow: 'visible' }}
+          >
+            {/* Generate larger, more visible floating particles */}
+            {isClient && Array.from({ length: 80 }).map((_, i) => {
+              const angle = (i / 80) * Math.PI * 2;
+              const radiusMultiplier = 1 + (i % 5) * 0.3;
+              const radius = 60 * radiusMultiplier;
+              const x = Math.cos(angle) * radius;
+              const y = Math.sin(angle) * radius;
+              const size = 4 + (i % 6) * 1.5;
+              const delay = (i % 15) * 0.15;
+              const color = ['#6366F1', '#8B5CF6', '#EC4899', '#10B981'][i % 4];
+
+              return (
+                <motion.div
+                  key={i}
+                  className="absolute rounded-full"
+                  style={{
+                    width: size,
+                    height: size,
+                    background: color,
+                    boxShadow: `0 0 ${size * 4}px ${color}, 0 0 ${size * 2}px ${color}`,
+                    left: '50%',
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                  animate={isHovered ? {
+                    x: 0,
+                    y: 0,
+                    opacity: 0,
+                    scale: 0.3,
+                  } : {
+                    x: [0, x * 0.6, x, x * 0.6, 0],
+                    y: [0, y * 0.6, y, y * 0.6, 0],
+                    opacity: [0, 0.6, 1, 0.6, 0],
+                    scale: [0, 0.8, 1.2, 0.8, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    delay: delay,
+                    ease: "easeInOut"
+                  }}
+                />
+              );
+            })}
+
+            {/* Glowing energy rings */}
+            {isClient && [1, 2, 3].map((ring) => (
+              <motion.div
+                key={ring}
+                className="absolute inset-0 rounded-full"
+                style={{
+                  border: `2px solid rgba(99, 102, 241, ${0.3 / ring})`,
+                  boxShadow: `0 0 ${20 * ring}px rgba(99, 102, 241, ${0.4 / ring})`,
+                }}
+                animate={isHovered ? {
+                  scale: 1,
+                  opacity: 0,
+                } : {
+                  scale: [1, 1 + ring * 0.15, 1],
+                  opacity: [0.4, 0.7, 0.4],
+                }}
+                transition={{
+                  duration: 3 + ring,
+                  repeat: Infinity,
+                  delay: ring * 0.4,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+
+            {/* Rotating shimmer overlay */}
+            <motion.div
+              className="absolute inset-0 rounded-full"
               style={{
-                background: 'radial-gradient(circle at center, #6366F1, #8B5CF6, transparent)',
-                filter: 'blur(8px)',
-                boxShadow: '0 0 60px rgba(99, 102, 241, 0.6)'
+                background: 'linear-gradient(135deg, transparent 20%, rgba(99, 102, 241, 0.2) 50%, transparent 80%)',
+              }}
+              animate={isHovered ? {
+                rotate: 0,
+                opacity: 0,
+              } : {
+                rotate: 360,
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{
+                rotate: {
+                  duration: 10,
+                  repeat: Infinity,
+                  ease: "linear"
+                },
+                opacity: {
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }
               }}
             />
           </motion.div>
-        </motion.div>
-
-        {/* Profile Picture (shown when visible) */}
-        <motion.div 
-          className="w-full h-full rounded-full overflow-hidden bg-gray-800 relative"
-          animate={isVisible ? { 
-            opacity: 1
-          } : { 
-            opacity: 0
-          }}
-          transition={{ 
-            duration: 0.2,
-            ease: 'easeOut' 
-          }}
-        >
-          <Image
-            src="/ai_keith.jpg"
-            alt="Keith A. Salzman - Computer Scientist and Machine Learning Researcher"
-            width={320}
-            height={320}
-            className="object-cover w-full h-full"
-            priority
-          />
-          {/* Eclipse gradient overlay on the image */}
-          {isVisible && (
-            <motion.div 
-              className="absolute inset-0 rounded-full"
-              style={{
-                background: 'radial-gradient(circle at center, transparent 0%, rgba(255, 255, 255, 0.05) 30%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.03) 70%, transparent 100%)',
-                pointerEvents: 'none',
-              }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ 
-                duration: 0.2,
-                ease: 'easeOut' 
-              }}
-            />
-          )}
         </motion.div>
       </motion.div>
 
@@ -651,16 +751,24 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate }) => 
               }}
               aria-label={`Navigate to ${link.label} page`}
             >
-              <div
-                className={`text-white text-base md:text-xl lg:text-2xl font-medium whitespace-nowrap transition-all duration-200 cursor-pointer ${colorClasses[flameColor as keyof typeof colorClasses]}`}
+              <motion.div
+                className={`text-white text-base md:text-xl lg:text-2xl font-medium whitespace-nowrap cursor-pointer ${colorClasses[flameColor as keyof typeof colorClasses]}`}
                 style={{
                   ...fireAnimations[flameColor as keyof typeof fireAnimations],
-                  transition: 'all 0.3s ease-in-out'
+                }}
+                animate={{
+                  scale: [1, 1.05, 1],
+                  opacity: [0.9, 1, 0.9]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
                 }}
                 aria-hidden="true"
               >
                 {link.label}
-              </div>
+              </motion.div>
             </motion.div>
           );
         })}
