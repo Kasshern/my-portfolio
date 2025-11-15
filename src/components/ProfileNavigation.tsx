@@ -126,7 +126,7 @@ const FloatingGlowEffect: React.FC<{
   color: string;
   onAnchorComplete: () => void;
   onReturnHome?: () => void;
-}> = ({ flame, color, onAnchorComplete, onReturnHome }) => {
+}> = ({ flame, color, onAnchorComplete }) => {
   const glowColors = {
     red: '#EF4444',
     blue: '#6366F1',
@@ -138,12 +138,6 @@ const FloatingGlowEffect: React.FC<{
   };
 
   const glowColor = glowColors[color as keyof typeof glowColors] || glowColors.blue;
-
-  const handleClick = () => {
-    if (flame.journeyState === 'anchored' && onReturnHome) {
-      onReturnHome();
-    }
-  };
 
   // Calculate target position based on journey state
   const getTargetPosition = () => {
@@ -172,7 +166,7 @@ const FloatingGlowEffect: React.FC<{
 
   return (
     <motion.div
-      className={`fixed z-50 flex items-center justify-center ${flame.journeyState === 'anchored' ? 'pointer-events-auto cursor-pointer' : 'pointer-events-none'}`}
+      className="fixed z-50 flex items-center justify-center pointer-events-none"
       style={{
         left: `calc(50% + ${flame.currentPosition.x}px)`,
         top: `calc(50% + ${flame.currentPosition.y}px)`,
@@ -190,9 +184,6 @@ const FloatingGlowEffect: React.FC<{
           onAnchorComplete();
         }
       }}
-      onClick={handleClick}
-      whileHover={flame.journeyState === 'anchored' ? { scale: 1.1 } : {}}
-      whileTap={flame.journeyState === 'anchored' ? { scale: 0.95 } : {}}
     >
       {/* Glowing orb with enhanced trail */}
       <motion.div
@@ -419,37 +410,16 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate, onHov
     const navLink = navLinks.find(link => link.href === href);
 
     if (clickedLink && navLink && pageName !== 'home') {
-      // If there's already a floating flame, return it first before creating a new one
-      if (floatingFlame) {
-        setFloatingFlame(prev => prev ? {
-          ...prev,
-          journeyState: 'returning'
-        } : null);
-
-        // Wait for the return animation to complete before creating new flame
-        setTimeout(() => {
-          setFloatingFlame({
-            isFloating: true,
-            targetPage: pageName,
-            originalPosition: { x: clickedLink.x, y: clickedLink.y },
-            currentPosition: { x: clickedLink.x, y: clickedLink.y },
-            journeyState: 'departing',
-            linkLabel: navLink.label,
-            linkColor: navLink.flameColor
-          });
-        }, 800); // Match the return animation duration
-      } else {
-        // No existing floating flame, create new one immediately
-        setFloatingFlame({
-          isFloating: true,
-          targetPage: pageName,
-          originalPosition: { x: clickedLink.x, y: clickedLink.y },
-          currentPosition: { x: clickedLink.x, y: clickedLink.y },
-          journeyState: 'departing',
-          linkLabel: navLink.label,
-          linkColor: navLink.flameColor
-        });
-      }
+      // Just replace any existing floating flame with the new one immediately
+      setFloatingFlame({
+        isFloating: true,
+        targetPage: pageName,
+        originalPosition: { x: clickedLink.x, y: clickedLink.y },
+        currentPosition: { x: clickedLink.x, y: clickedLink.y },
+        journeyState: 'departing',
+        linkLabel: navLink.label,
+        linkColor: navLink.flameColor
+      });
     }
 
     // Use the callback if provided, otherwise use the context
@@ -489,15 +459,8 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate, onHov
             window.scrollTo({ top: 0, behavior: 'smooth' });
             // Navigate to home
             navigateToPage('home');
-            // Set flame to returning state to trigger return animation
-            setFloatingFlame(prev => prev ? {
-              ...prev,
-              journeyState: 'returning'
-            } : null);
-            // Clear the floating flame after animation completes
-            setTimeout(() => {
-              setFloatingFlame(null);
-            }, 800); // Match the return animation duration
+            // Just clear the floating flame immediately - no return animation
+            setFloatingFlame(null);
           }}
         />
       )}
