@@ -166,9 +166,6 @@ const Skills = () => {
               >
                 {category.title}
               </motion.h2>
-              {category.description && (
-                <p className="text-lg text-gray-400 mb-4">{category.description}</p>
-              )}
               <div className="flex flex-wrap gap-3">
                 {category.skills.map((skill, i) => (
                   <motion.span
