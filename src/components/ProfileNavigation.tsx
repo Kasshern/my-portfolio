@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useNavigation } from './NavigationContext';
+import MouseTracker from './MouseTracker';
 
 interface NavLink {
   href: string;
@@ -18,95 +19,6 @@ interface ProfileNavigationProps {
   onNavigate?: (page: PageType) => void;
   onHoverChange?: (isHovered: boolean) => void;
 }
-
-// Orbital Glow Ring effect component
-const OrbitalGlowEffect: React.FC<{
-  isVisible: boolean;
-  color: string;
-  x: number;
-  y: number;
-  isClient: boolean;
-}> = ({ isVisible, color, x, y, isClient }) => {
-  const glowColors = {
-    red: '#EF4444',
-    blue: '#6366F1',
-    green: '#10B981',
-    purple: '#8B5CF6',
-    orange: '#F59E0B',
-    cyan: '#06B6D4',
-    pink: '#EC4899',
-  };
-
-  const glowColor = glowColors[color as keyof typeof glowColors] || glowColors.blue;
-
-  return (
-    <motion.div
-      className="absolute transform -translate-x-1/2 -translate-y-1/2 z-0"
-      style={{
-        left: `calc(50% + ${x}px)`,
-        top: `calc(50% + ${y}px)`,
-      }}
-      initial={isClient ? {
-        opacity: 0,
-        scale: 0
-      } : { opacity: 0, scale: 0 }}
-      animate={isClient && isVisible ? {
-        opacity: 1,
-        scale: 1
-      } : isClient ? {
-        opacity: 0,
-        scale: 0
-      } : { opacity: 0, scale: 0 }}
-      transition={isClient ? {
-        duration: 0.3,
-        ease: "easeOut"
-      } : {}}
-    >
-      {/* Outer rotating ring */}
-      <motion.div
-        className="relative w-20 h-20 md:w-24 md:h-24"
-        animate={{
-          rotate: 360
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      >
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{
-            background: `radial-gradient(circle at center, transparent 60%, ${glowColor}40 70%, transparent 80%)`,
-            filter: 'blur(2px)'
-          }}
-        />
-      </motion.div>
-
-      {/* Inner pulsing glow */}
-      <motion.div
-        className="absolute inset-0 flex items-center justify-center"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.6, 1, 0.6]
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <div
-          className="w-3 h-3 rounded-full"
-          style={{
-            background: glowColor,
-            boxShadow: `0 0 20px ${glowColor}, 0 0 40px ${glowColor}80`
-          }}
-        />
-      </motion.div>
-    </motion.div>
-  );
-};
 
 const navLinks: NavLink[] = [
   { href: '/experience', label: 'Experience', angle: 0, flameColor: 'blue' },
@@ -196,6 +108,7 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate, onHov
       role="navigation"
       aria-label="Main navigation"
     >
+      <MouseTracker />
       {/* Profile Picture Container */}
       <motion.div
         className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-80 md:h-80 rounded-full overflow-visible flex items-center justify-center cursor-pointer"
@@ -236,107 +149,51 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate, onHov
             />
           </div>
 
-          {/* Particle Dispersion Effect Overlay */}
-          <motion.div
-            className="absolute inset-0"
-            style={{ pointerEvents: 'none', overflow: 'visible' }}
-          >
-            {/* Generate larger, more visible floating particles */}
-            {isClient && Array.from({ length: 150 }).map((_, i) => {
-              const angle = (i / 150) * Math.PI * 2;
-              // Start from edge of portrait (radius ~96px for w-48, 120px for w-60, 160px for w-80)
-              // Using base of 96px which works for the default size
-              const baseRadius = 96; // Half of w-48 (192px)
-              const radiusMultiplier = 1 + (i % 8) * 0.4;
-              const startRadius = baseRadius;
-              const endRadius = baseRadius + (120 * radiusMultiplier);
-
-              const startX = Math.cos(angle) * startRadius;
-              const startY = Math.sin(angle) * startRadius;
-              const midX = Math.cos(angle) * (startRadius + (endRadius - startRadius) * 0.6);
-              const midY = Math.sin(angle) * (startRadius + (endRadius - startRadius) * 0.6);
-              const endX = Math.cos(angle) * endRadius;
-              const endY = Math.sin(angle) * endRadius;
-
-              const size = 4 + (i % 6) * 1.5;
-              const delay = (i % 20) * 0.12;
-              const color = ['#6366F1', '#8B5CF6', '#EC4899', '#10B981'][i % 4];
-
-              return (
-                <motion.div
-                  key={i}
-                  className="absolute rounded-full"
-                  style={{
-                    width: size,
-                    height: size,
-                    background: color,
-                    boxShadow: `0 0 ${size * 4}px ${color}, 0 0 ${size * 2}px ${color}`,
-                    left: '50%',
-                    top: '50%',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                  animate={{
-                    x: [startX, midX, endX, midX, startX],
-                    y: [startY, midY, endY, midY, startY],
-                    opacity: [0, 0.6, 1, 0.6, 0],
-                    scale: [0, 0.8, 1.2, 0.8, 0],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    delay: delay,
-                    ease: "easeInOut"
-                  }}
-                />
-              );
-            })}
-
-            {/* Glowing energy rings */}
-            {isClient && [1, 2, 3].map((ring) => (
-              <motion.div
-                key={ring}
-                className="absolute inset-0 rounded-full"
-                style={{
-                  border: `2px solid rgba(99, 102, 241, ${0.3 / ring})`,
-                  boxShadow: `0 0 ${20 * ring}px rgba(99, 102, 241, ${0.4 / ring})`,
-                }}
-                animate={{
-                  scale: [1, 1 + ring * 0.15, 1],
-                  opacity: [0.4, 0.7, 0.4],
-                }}
-                transition={{
-                  duration: 3 + ring,
-                  repeat: Infinity,
-                  delay: ring * 0.4,
-                  ease: "easeInOut"
-                }}
-              />
-            ))}
-
-            {/* Rotating shimmer overlay */}
+          {/* Glowing energy rings */}
+          {isClient && [1, 2, 3].map((ring) => (
             <motion.div
+              key={ring}
               className="absolute inset-0 rounded-full"
               style={{
-                background: 'linear-gradient(135deg, transparent 20%, rgba(99, 102, 241, 0.2) 50%, transparent 80%)',
+                border: `2px solid rgba(99, 102, 241, ${0.3 / ring})`,
+                boxShadow: `0 0 ${20 * ring}px rgba(99, 102, 241, ${0.4 / ring})`,
               }}
               animate={{
-                rotate: 360,
-                opacity: [0.5, 0.8, 0.5],
+                scale: [1, 1 + ring * 0.15, 1],
+                opacity: [0.4, 0.7, 0.4],
               }}
               transition={{
-                rotate: {
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: "linear"
-                },
-                opacity: {
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }
+                duration: 3 + ring,
+                repeat: Infinity,
+                delay: ring * 0.4,
+                ease: "easeInOut"
               }}
             />
-          </motion.div>
+          ))}
+
+          {/* Rotating shimmer overlay */}
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: 'linear-gradient(135deg, transparent 20%, rgba(99, 102, 241, 0.2) 50%, transparent 80%)',
+            }}
+            animate={{
+              rotate: 360,
+              opacity: [0.5, 0.8, 0.5],
+            }}
+            transition={{
+              rotate: {
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear"
+              },
+              opacity: {
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }
+            }}
+          />
         </motion.div>
       </motion.div>
 
@@ -368,20 +225,6 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate, onHov
 
       {/* Container for all orbital glows and navigation words */}
       <div className="absolute inset-0">
-        {/* Orbital Glow Effects */}
-        {positionedLinks.map((link) => {
-          return (
-            <OrbitalGlowEffect
-              key={`glow-${link.href}`}
-              isVisible={isVisible}
-              color={link.flameColor}
-              x={link.x}
-              y={link.y}
-              isClient={isClient}
-            />
-          );
-        })}
-
         {/* Navigation Links */}
         {positionedLinks.map((link) => {
           // Navigation links now use pure orbital motion
