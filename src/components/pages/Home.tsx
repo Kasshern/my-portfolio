@@ -17,6 +17,7 @@ type PageType = 'home' | 'experience' | 'education' | 'skills' | 'projects' | 'v
 const Home = () => {
   const [currentContent, setCurrentContent] = useState<PageType | null>(null);
   const [isProfileHovered, setIsProfileHovered] = useState(false);
+  const [canHover, setCanHover] = useState(true);
   const contentRef = useRef<HTMLDivElement>(null);
 
   // Map page types to components
@@ -49,6 +50,24 @@ const Home = () => {
   };
 
   const CurrentContentComponent = currentContent ? pageComponents[currentContent] : null;
+  const hoverActive = isProfileHovered;
+  const hoverScaleActive = canHover && isProfileHovered;
+  const stretchIndicator = hoverScaleActive;
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const query = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const updateCapability = (event: MediaQueryListEvent | MediaQueryList) => {
+      setCanHover(event.matches);
+    };
+    updateCapability(query);
+    query.addEventListener('change', updateCapability);
+    return () => query.removeEventListener('change', updateCapability);
+  }, []);
+
+  const handleHoverChange = (state: boolean) => {
+    setIsProfileHovered(state);
+  };
 
   return (
     <div className="min-h-screen bg-[#0F0F0F]">
@@ -59,45 +78,64 @@ const Home = () => {
 
       {/* Fixed Header Section with ProfileNavigation */}
       <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8 relative">
-        {/* Hero Title - Only visible on hover - Absolutely positioned */}
-        <AnimatePresence>
-          {isProfileHovered && (
-            <motion.div
-              className="absolute text-center"
-              style={{ bottom: 'calc(50% + 280px)' }}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 30 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-            >
-              <h1
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
-                style={{
-                  background: 'linear-gradient(to right, #6366F1, #8B5CF6, #EC4899)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  letterSpacing: '-0.02em'
-                }}
-              >
-                Keith Salzman
-              </h1>
-              <p className="text-xl sm:text-2xl md:text-3xl text-[#E5E5E5] font-medium tracking-wide">
-                Blockchain and Machine Learning Engineer
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <motion.div
+          className="absolute flex flex-col items-center text-center pointer-events-none"
+          style={{ top: '8%', left: '50%', transform: 'translateX(-50%)' }}
+          initial={{ opacity: 0, filter: 'blur(6px)' }}
+          animate={{
+            opacity: 1,
+            filter: hoverActive ? 'blur(0px)' : 'blur(3px)',
+            scale: hoverScaleActive ? 1.02 : 1,
+          }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        >
+          <h1
+            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4"
+            style={{
+              background: 'linear-gradient(110deg, rgba(255,255,255,0.95), #A5B4FC, #FBD38D 70%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              letterSpacing: '-0.02em'
+            }}
+          >
+            Keith Salzman
+          </h1>
+          <p className="text-lg sm:text-2xl md:text-3xl text-[#E5E5E5]/90 font-medium tracking-[0.08em] uppercase">
+            Blockchain & Machine Learning Engineer
+          </p>
+          <motion.div
+            className="mt-6 h-1 w-32 rounded-full bg-gradient-to-r from-[#FBD38D] via-[#8B5CF6] to-transparent"
+            animate={{
+              width: stretchIndicator ? '16rem' : '10rem',
+              opacity: hoverActive ? 1 : 0.6,
+            }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
+          />
+        </motion.div>
+
+        <motion.div
+          className="absolute pointer-events-none"
+          style={{ top: '20%', right: '15%' }}
+          animate={{
+            scale: hoverScaleActive ? [1, 1.2, 1] : [1, 1.05, 1],
+            opacity: hoverActive ? [0.6, 0.9, 0.6] : [0.3, 0.5, 0.3],
+          }}
+          transition={{ repeat: Infinity, duration: 6 }}
+        >
+          <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#FDE68A] via-[#FBBF24] to-transparent blur-3xl" />
+        </motion.div>
 
         {/* Profile Navigation */}
         <motion.div
           variants={scaleInVariants}
           initial="hidden"
           animate="visible"
+          className="relative z-10"
         >
           <ProfileNavigation
             onNavigate={handleNavigation}
-            onHoverChange={setIsProfileHovered}
+            onHoverChange={handleHoverChange}
           />
         </motion.div>
       </div>

@@ -68,7 +68,7 @@ const Projects = () => {
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            className="glass-card-strong rounded-2xl overflow-hidden"
+            className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0B1221] via-[#111827] to-[#050608] shadow-[0_40px_120px_rgba(0,0,0,0.45)]"
             variants={fadeInUpVariants}
             whileHover={{
               scale: 1.02,
@@ -76,6 +76,9 @@ const Projects = () => {
             }}
             whileTap={{ scale: 0.98 }}
           >
+            <div className="absolute inset-0 opacity-40 pointer-events-none">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(251,191,36,0.18),transparent_60%)]" />
+            </div>
             {/* Project image */}
             {project.title.includes('EthAtlanta') ? (
               <Image
@@ -128,7 +131,7 @@ const Projects = () => {
             ) : (
               <div className="h-48 bg-transparent"></div>
             )}
-            <div className="p-6 md:p-8">
+            <div className="relative p-6 md:p-8 space-y-4">
               <div className="flex items-start justify-between mb-2">
                 <motion.h2
                   className="text-2xl font-bold text-white flex-1"
@@ -153,11 +156,11 @@ const Projects = () => {
                 {project.technologies.map((tech, techIndex) => (
                   <motion.span
                     key={techIndex}
-                    className="px-3 py-1 bg-transparent text-[#A5B4FC] rounded-full text-sm border border-[#6366F1]"
+                    className="px-3 py-1 text-xs font-medium text-white rounded-full border border-white/10 bg-white/5"
                     whileHover={{
                       scale: 1.1,
-                      backgroundColor: "rgba(99, 102, 241, 0.15)",
-                      borderColor: "#8B5CF6"
+                      backgroundColor: "rgba(255, 255, 255, 0.12)",
+                      borderColor: "rgba(255, 255, 255, 0.3)"
                     }}
                     whileTap={{ scale: 0.9 }}
                     transition={{ duration: 0.2 }}
@@ -179,13 +182,12 @@ const Projects = () => {
                   View Project
                 </motion.a>
               ) : (
-                <button
-                  disabled
-                  className="inline-block bg-[#1A1A1A] text-[#A3A3A3] px-4 py-2 rounded cursor-not-allowed opacity-60 border border-[rgba(255,255,255,0.1)]"
+                <span
+                  className="inline-block bg-black/40 text-[#A3A3A3] px-4 py-2 rounded border border-white/10 cursor-not-allowed opacity-70"
                   aria-label={`${project.title} - Not publicly available`}
                 >
                   Not Available
-                </button>
+                </span>
               )}
             </div>
           </motion.div>

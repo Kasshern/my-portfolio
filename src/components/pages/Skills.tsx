@@ -146,13 +146,17 @@ const Skills = () => {
       initial="hidden"
       animate="visible"
     >
-      <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+      <section className="relative rounded-3xl border border-white/10 bg-gradient-to-br from-[#0B1221] via-[#0F0F0F] to-[#050608] p-6 md:p-10 shadow-[0_40px_120px_rgba(0,0,0,0.45)] overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-40">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(251,191,36,0.2),transparent_60%)]" />
+        </div>
+        <div className="relative flex flex-col lg:flex-row gap-10 lg:gap-16">
         {/* Left column: Skills */}
         <div className="flex-1 space-y-8 md:space-y-10">
           {skillCategories.map((category, index) => (
             <motion.div
               key={index}
-              className="glass-card-strong rounded-2xl p-8 md:p-10"
+              className="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-6 md:p-8"
               variants={fadeInUpVariants}
               whileHover={{
                 scale: 1.01,
@@ -170,7 +174,7 @@ const Skills = () => {
                 {category.skills.map((skill, i) => (
                   <motion.span
                     key={i}
-                    className="px-4 py-2 bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white rounded-full text-sm font-medium shadow-lg hover:shadow-xl transition-shadow cursor-default"
+                    className="px-4 py-2 rounded-full text-sm font-medium text-white border border-white/10 bg-white/5"
                     variants={fadeInUpVariants}
                     whileHover={{
                       scale: 1.05,
@@ -202,7 +206,7 @@ const Skills = () => {
             <div className="grid grid-cols-1 gap-4 md:gap-6">
               {/* EthAtlanta Hackathon */}
               <motion.div
-                className="glass-card-strong rounded-2xl p-6 border border-[#6366F1]/30"
+                className="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-6"
                 variants={fadeInUpVariants}
                 whileHover={{
                   scale: 1.02,
@@ -232,7 +236,7 @@ const Skills = () => {
 
               {/* GM Geek Week */}
               <motion.div
-                className="glass-card-strong rounded-2xl p-6 border border-[#8B5CF6]/30"
+                className="rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-6"
                 variants={fadeInUpVariants}
                 whileHover={{
                   scale: 1.02,
@@ -279,10 +283,10 @@ const Skills = () => {
                     href: cert.credentialUrl,
                     target: "_blank",
                     rel: "noopener noreferrer",
-                    className: "block glass-card-strong rounded-2xl p-6 cursor-pointer"
+                    className: "block rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-6 cursor-pointer"
                   }
                 : {
-                    className: "glass-card-strong rounded-2xl p-6 cursor-default"
+                    className: "rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-6 cursor-default"
                   };
 
               return (
@@ -334,7 +338,8 @@ const Skills = () => {
           </div>
           </div>
         </div>
-      </div>
+        </div>
+      </section>
     </motion.div>
   );
 };

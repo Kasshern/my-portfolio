@@ -49,18 +49,21 @@ const Contact = () => {
 
   return (
     <motion.div
-      className="w-full max-w-2xl mx-auto"
+      className="w-full max-w-2xl mx-auto relative rounded-3xl border border-white/10 bg-gradient-to-br from-[#0B1221] via-[#0F0F0F] to-[#050608] p-6 md:p-10 shadow-[0_40px_120px_rgba(0,0,0,0.45)] overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
     >
-      <ul className="space-y-6" role="list">
+      <div className="absolute inset-0 pointer-events-none opacity-40">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,rgba(99,102,241,0.2),transparent_60%)]" />
+      </div>
+      <ul className="relative space-y-6" role="list">
         {links.map((link, idx) => (
           <li key={idx} className="relative">
             <motion.a
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative block w-full text-center text-lg sm:text-xl md:text-2xl font-semibold text-[#A5B4FC] glass-card-medium rounded-lg py-3 sm:py-4 shadow-lg hover:bg-[#6366F1] hover:text-white hover:shadow-[0_0_30px_rgba(99,102,241,0.3)] transition-all focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:ring-offset-2 focus:ring-offset-[#0F0F0F] overflow-hidden"
+              className="relative block w-full text-center text-lg sm:text-xl md:text-2xl font-semibold text-white rounded-2xl border border-white/10 bg-black/40 py-3 sm:py-4 shadow-lg hover:bg-white/10 hover:text-white transition-all focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:ring-offset-2 focus:ring-offset-[#0F0F0F] overflow-hidden"
               aria-label={`Contact via ${link.label}: ${link.displayText || link.label}`}
               onClick={(e) => handleRipple(e, idx)}
               whileHover={{ scale: 1.02 }}
@@ -92,7 +95,7 @@ const Contact = () => {
             {link.copyText && (
               <motion.button
                 onClick={(e) => handleCopy(link.copyText!, idx, e)}
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-md glass-card-light hover:bg-[#8B5CF6] transition-colors focus:outline-none focus:ring-2 focus:ring-[#6366F1]"
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-md bg-white/5 border border-white/10 hover:bg-[#8B5CF6]/40 transition-colors focus:outline-none focus:ring-2 focus:ring-[#6366F1]"
                 aria-label={`Copy ${link.label} to clipboard`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
