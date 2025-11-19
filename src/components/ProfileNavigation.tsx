@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useNavigation } from './NavigationContext';
-import MouseTracker from './MouseTracker';
 
 interface NavLink {
   href: string;
@@ -108,7 +107,6 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate, onHov
       role="navigation"
       aria-label="Main navigation"
     >
-      <MouseTracker />
       {/* Profile Picture Container */}
       <motion.div
         className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-80 md:h-80 rounded-full overflow-visible flex items-center justify-center cursor-pointer"

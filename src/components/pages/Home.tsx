@@ -51,7 +51,7 @@ const Home = () => {
   const CurrentContentComponent = currentContent ? pageComponents[currentContent] : null;
 
   return (
-    <div className="min-h-screen bg-[#0F0F0F]" style={{ background: 'radial-gradient(circle at top, rgba(99, 102, 241, 0.15) 0%, #0F0F0F 70%)' }}>
+    <div className="min-h-screen bg-[#0F0F0F]">
       {/* Skip to content link for accessibility */}
       <a href="#main-content" className="skip-to-content">
         Skip to main content

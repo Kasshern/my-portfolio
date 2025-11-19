@@ -2,56 +2,17 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useNavigation } from './NavigationContext';
 
 /**
  * Dynamic ambient lighting component that responds to current page
  * Creates immersive atmosphere with animated gradient mesh
  */
 const AmbientLighting: React.FC = () => {
-  const navigation = useNavigation();
-  const currentPage = navigation?.currentPage || 'home';
-
-  // Page-specific color schemes
-  const pageColors = {
-    home: {
-      primary: 'rgba(99, 102, 241, 0.12)',    // Indigo
-      secondary: 'rgba(139, 92, 246, 0.10)',  // Purple
-      tertiary: 'rgba(236, 72, 153, 0.08)'    // Pink
-    },
-    experience: {
-      primary: 'rgba(59, 130, 246, 0.12)',    // Blue
-      secondary: 'rgba(99, 102, 241, 0.10)',  // Indigo
-      tertiary: 'rgba(14, 165, 233, 0.08)'    // Sky
-    },
-    education: {
-      primary: 'rgba(34, 197, 94, 0.12)',     // Green
-      secondary: 'rgba(16, 185, 129, 0.10)',  // Emerald
-      tertiary: 'rgba(52, 211, 153, 0.08)'    // Teal
-    },
-    skills: {
-      primary: 'rgba(168, 85, 247, 0.12)',    // Purple
-      secondary: 'rgba(139, 92, 246, 0.10)',  // Violet
-      tertiary: 'rgba(192, 132, 252, 0.08)'   // Light Purple
-    },
-    projects: {
-      primary: 'rgba(249, 115, 22, 0.12)',    // Orange
-      secondary: 'rgba(245, 158, 11, 0.10)',  // Amber
-      tertiary: 'rgba(251, 146, 60, 0.08)'    // Light Orange
-    },
-    videos: {
-      primary: 'rgba(6, 182, 212, 0.12)',     // Cyan
-      secondary: 'rgba(14, 165, 233, 0.10)',  // Sky
-      tertiary: 'rgba(34, 211, 238, 0.08)'    // Light Cyan
-    },
-    contact: {
-      primary: 'rgba(236, 72, 153, 0.12)',    // Pink
-      secondary: 'rgba(219, 39, 119, 0.10)',  // Rose
-      tertiary: 'rgba(244, 114, 182, 0.08)'   // Light Pink
-    }
+  const colors = {
+    primary: 'rgba(99, 102, 241, 0.12)',    // Indigo
+    secondary: 'rgba(139, 92, 246, 0.10)',  // Purple
+    tertiary: 'rgba(236, 72, 153, 0.08)'    // Pink
   };
-
-  const colors = pageColors[currentPage] || pageColors.home;
 
   return (
     <>
