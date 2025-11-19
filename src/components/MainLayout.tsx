@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavigationProvider } from './NavigationContext';
 import AmbientLighting from './AmbientLighting';
+import AmbientAudio from './AmbientAudio';
 import ParallaxBackground from './ParallaxBackground';
 import Home from './pages/Home';
 
@@ -59,6 +60,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ initialPage }) => {
         <div 
           className="min-h-screen bg-black relative"
         >
+          <AmbientAudio />
           <AmbientLighting />
           <Home />
         </div>
