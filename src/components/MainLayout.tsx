@@ -5,6 +5,7 @@ import { NavigationProvider } from './NavigationContext';
 import AmbientLighting from './AmbientLighting';
 import ParallaxBackground from './ParallaxBackground';
 import Home from './pages/Home';
+import BackgroundGrid from './BackgroundGrid';
 
 type PageType = 'home' | 'experience' | 'education' | 'skills' | 'projects' | 'videos' | 'contact';
 
@@ -53,12 +54,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({ initialPage }) => {
     }, 100);
   };
 
-
-
   return (
     <NavigationProvider navigateToPage={navigateToPage} currentPage={currentPage}>
       <ParallaxBackground>
-        <div className="min-h-screen bg-black relative">
+        <div 
+          className="min-h-screen bg-black relative"
+        >
+          <BackgroundGrid />
           <AmbientLighting />
           <Home />
         </div>
@@ -67,4 +69,4 @@ const MainLayout: React.FC<MainLayoutProps> = ({ initialPage }) => {
   );
 };
 
-export default MainLayout; 
+export default MainLayout;
