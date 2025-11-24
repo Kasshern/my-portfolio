@@ -23,8 +23,8 @@ const Skills = () => {
         "EVM",
         "Hardhat",
         "Foundry",
-        "Upgradeable Contracts",
-        "ERC-20/721/1155/4337/2981",
+        "Upgradeable & Modular Contracts",
+        "ERC & Custom Token Standards",
         "Cross-chain architecture",
         "zk-SNARKs/STARKs",
         "MPC",
@@ -32,7 +32,9 @@ const Skills = () => {
         "Circom",
         "Gnark",
         "Ethers.js",
-        "Web3.js"
+        "Web3.js",
+        "Gas and Opcode Optimization",
+        "Yul and ABI/Bytecode"
       ]
     },
     {
@@ -54,7 +56,9 @@ const Skills = () => {
         "Microservices",
         "PostgreSQL",
         "MongoDB",
-        "NATS"
+        "NATS",
+        "Jest",
+        "JSON RPC"
       ]
     },
     {
@@ -64,9 +68,13 @@ const Skills = () => {
         "Docker",
         "Kubernetes",
         "Helm",
-        "CI/CD (GitHub Actions, Jenkins)",
+        "GitHub Actions",
+        "Jenkins",
         "ArgoCD",
-        "RPC Node Ops (Infura, Alchemy, QuickNode)"
+        "RPC Node Ops (Infura, Alchemy, QuickNode)",
+        "Terraform",
+        "NGINX",
+        "HashiCorp Vault"
       ]
     },
     {

@@ -13,7 +13,8 @@ const Projects = () => {
       description: "Placed 1st in the Eth Atl Hackathon. Economic Empowerment. Oct 2021 - Present · 3 yrs 7 mos.",
       link: "https://ethatl.com",
       available: true,
-      technologies: ["Ethereum", "Solidity", "Hackathon", "Economic Empowerment"]
+      technologies: ["Ethereum", "Solidity", "Hackathon", "Economic Empowerment"],
+      color: "#F59E0B"
     },
     {
       title: "1st Place Geek Week Top Coder Challenge Winner - General Motors",
@@ -21,7 +22,8 @@ const Projects = () => {
       link: null,
       available: false,
       badge: "Private/Proprietary",
-      technologies: ["General Motors", "Top Coder", "Hackathon"]
+      technologies: ["General Motors", "Top Coder", "Hackathon"],
+      color: "#EC4899"
     },
     {
       title: "Supervised Learning Algorithms for Classification",
@@ -29,7 +31,8 @@ const Projects = () => {
       link: null,
       available: false,
       badge: "Academic Project",
-      technologies: ["Python", "Scikit-learn", "Neural Networks", "SVM", "KNN", "Data Science", "Machine Learning"]
+      technologies: ["Python", "Scikit-learn", "Neural Networks", "SVM", "KNN", "Data Science", "Machine Learning"],
+      color: "#6366F1"
     },
     {
       title: "Randomized Optimization for Machine Learning",
@@ -37,7 +40,8 @@ const Projects = () => {
       link: null,
       available: false,
       badge: "Academic Project",
-      technologies: ["Python", "Simulated Annealing", "Random Hill Climbing", "Genetic Algorithm", "Neural Networks", "Optimization", "Machine Learning"]
+      technologies: ["Python", "Simulated Annealing", "Random Hill Climbing", "Genetic Algorithm", "Neural Networks", "Optimization", "Machine Learning"],
+      color: "#8B5CF6"
     },
     {
       title: "Unsupervised Learning & Dimensionality Reduction",
@@ -45,7 +49,8 @@ const Projects = () => {
       link: null,
       available: false,
       badge: "Academic Project",
-      technologies: ["Python", "K-Means", "Expectation Maximization", "PCA", "ICA", "Random Projection", "Clustering", "Dimensionality Reduction", "Neural Networks", "Machine Learning"]
+      technologies: ["Python", "K-Means", "Expectation Maximization", "PCA", "ICA", "Random Projection", "Clustering", "Dimensionality Reduction", "Neural Networks", "Machine Learning"],
+      color: "#10B981"
     },
     {
       title: "Markov Decision Process & Reinforcement Learning",
@@ -53,7 +58,8 @@ const Projects = () => {
       link: null,
       available: false,
       badge: "Academic Project",
-      technologies: ["Python", "Reinforcement Learning", "Markov Decision Process", "Value Iteration", "Policy Iteration", "Q-learning", "SARSA", "Blackjack", "CartPole", "Machine Learning"]
+      technologies: ["Python", "Reinforcement Learning", "Markov Decision Process", "Value Iteration", "Policy Iteration", "Q-learning", "SARSA", "Blackjack", "CartPole", "Machine Learning"],
+      color: "#3B82F6"
     }
   ];
 
@@ -72,13 +78,50 @@ const Projects = () => {
             variants={fadeInUpVariants}
             whileHover={{
               scale: 1.02,
+              boxShadow: `0 40px 120px ${project.color}40`,
+              borderColor: `${project.color}60`,
               transition: { duration: 0.3, ease: "easeOut" }
             }}
             whileTap={{ scale: 0.98 }}
           >
-            <div className="absolute inset-0 opacity-40 pointer-events-none">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(251,191,36,0.18),transparent_60%)]" />
+            {/* Radial gradient overlay */}
+            <div className="absolute inset-0 opacity-30 pointer-events-none">
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: `radial-gradient(circle at 20% 20%, ${project.color}30, transparent 60%)`
+                }}
+              />
             </div>
+
+            {/* Vertical accent line on the left */}
+            <motion.div
+              className="absolute left-0 top-0 bottom-0 w-1"
+              style={{
+                background: `linear-gradient(to bottom, ${project.color}00, ${project.color}, ${project.color}00)`
+              }}
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+            />
+
+            {/* Glowing dot at the top of the vertical line */}
+            <motion.div
+              className="absolute left-[-4px] top-[200px] w-2 h-2 rounded-full"
+              style={{
+                backgroundColor: project.color,
+                boxShadow: `0 0 15px ${project.color}, 0 0 30px ${project.color}80`
+              }}
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.7, 1, 0.7]
+              }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
             {/* Project image */}
             {project.title.includes('EthAtlanta') ? (
               <Image
@@ -131,17 +174,11 @@ const Projects = () => {
             ) : (
               <div className="h-48 bg-transparent"></div>
             )}
-            <div className="relative p-6 md:p-8 space-y-4">
+            <div className="relative p-6 md:p-8 space-y-4 pl-8 md:pl-10">
               <div className="flex items-start justify-between mb-2">
                 <motion.h2
-                  className="text-2xl font-bold text-white flex-1"
+                  className="text-2xl font-bold gradient-text flex-1"
                   style={{ letterSpacing: '-0.01em' }}
-                  whileHover={{
-                    background: 'linear-gradient(to right, #6366F1, #8B5CF6)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
-                  }}
                 >
                   {project.title}
                 </motion.h2>
@@ -174,8 +211,15 @@ const Projects = () => {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white px-4 py-2 rounded hover:shadow-[0_0_30px_rgba(99,102,241,0.4)] transition-all focus:outline-none focus:ring-2 focus:ring-[#6366F1] focus:ring-offset-2 focus:ring-offset-[#0F0F0F]"
-                  whileHover={{ scale: 1.05 }}
+                  className="inline-block text-white px-4 py-2 rounded transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0F0F0F]"
+                  style={{
+                    background: `linear-gradient(to right, ${project.color}, ${project.color}DD)`,
+                    boxShadow: `0 0 20px ${project.color}40`
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: `0 0 40px ${project.color}80`
+                  }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={`View ${project.title}`}
                 >

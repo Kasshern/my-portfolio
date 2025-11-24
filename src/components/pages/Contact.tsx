@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const links = [
-  { label: 'Email', url: 'mailto:katilyste@gmail.com', copyText: 'katilyste@gmail.com' },
-  { label: 'LinkedIn', url: 'https://www.linkedin.com/in/keith-salzman-5491221b5/' },
-  { label: 'GitHub', url: 'https://github.com/Kasshern' },
-  { label: 'Discord', url: 'https://discord.com/users/.kasshern', displayText: '.kasshern', copyText: '.kasshern' },
-  { label: 'Telegram', url: 'https://t.me/ksalzman', copyText: '@ksalzman' },
+  { label: 'Email', url: 'mailto:katilyste@gmail.com', copyText: 'katilyste@gmail.com', color: '#F59E0B' },
+  { label: 'LinkedIn', url: 'https://www.linkedin.com/in/keith-salzman-5491221b5/', color: '#0A66C2' },
+  { label: 'GitHub', url: 'https://github.com/Kasshern', color: '#6366F1' },
+  { label: 'Discord', url: 'https://discord.com/users/.kasshern', displayText: '.kasshern', copyText: '.kasshern', color: '#5865F2' },
+  { label: 'Telegram', url: 'https://t.me/ksalzman', copyText: '@ksalzman', color: '#26A5E4' },
 ];
 
 const Contact = () => {
@@ -59,6 +59,35 @@ const Contact = () => {
       <ul className="relative space-y-6" role="list">
         {links.map((link, idx) => (
           <li key={idx} className="relative">
+            {/* Vertical accent line on the left */}
+            <motion.div
+              className="absolute left-[-24px] md:left-[-40px] top-0 bottom-0 w-1"
+              style={{
+                background: `linear-gradient(to bottom, ${link.color}00, ${link.color}, ${link.color}00)`
+              }}
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              transition={{ duration: 0.8, delay: idx * 0.1 }}
+            />
+
+            {/* Glowing dot on the vertical line */}
+            <motion.div
+              className="absolute left-[-28px] md:left-[-44px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
+              style={{
+                backgroundColor: link.color,
+                boxShadow: `0 0 15px ${link.color}, 0 0 30px ${link.color}80`
+              }}
+              animate={{
+                scale: [1, 1.3, 1],
+                opacity: [0.7, 1, 0.7]
+              }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+
             <motion.a
               href={link.url}
               target="_blank"
