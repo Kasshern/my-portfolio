@@ -101,7 +101,7 @@ body::before {
   z-index: 1;
 }
 
-/* Gradient mesh background */
+/* Gradient mesh background - static to prevent flickering */
 body::after {
   content: '';
   position: fixed;
@@ -115,19 +115,7 @@ body::after {
     radial-gradient(circle at 40% 90%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
-  animation: meshMove 20s ease-in-out infinite;
-}
-
-@keyframes meshMove {
-  0%, 100% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  33% {
-    transform: translate(-5%, -5%) rotate(1deg);
-  }
-  66% {
-    transform: translate(5%, 5%) rotate(-1deg);
-  }
+  /* Removed animation to prevent flickering */
 }
 
 /* Ensure content is above background effects */
