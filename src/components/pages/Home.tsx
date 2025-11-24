@@ -80,11 +80,15 @@ const Home = () => {
       <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8 relative">
         <motion.div
           className="absolute flex flex-col items-center text-center pointer-events-none"
-          style={{ top: '8%', left: '50%', transform: 'translateX(-50%)' }}
-          initial={{ opacity: 0, filter: 'blur(6px)' }}
+          style={{
+            top: '8%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            opacity: 1,
+          }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{
             opacity: 1,
-            filter: hoverActive ? 'blur(0px)' : 'blur(3px)',
             scale: hoverScaleActive ? 1.02 : 1,
           }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -106,9 +110,11 @@ const Home = () => {
           </p>
           <motion.div
             className="mt-6 h-1 w-32 rounded-full bg-gradient-to-r from-[#FBD38D] via-[#8B5CF6] to-transparent"
+            style={{
+              opacity: hoverActive ? 1 : 0.6,
+            }}
             animate={{
               width: stretchIndicator ? '16rem' : '10rem',
-              opacity: hoverActive ? 1 : 0.6,
             }}
             transition={{ duration: 0.6, ease: 'easeInOut' }}
           />
@@ -116,10 +122,13 @@ const Home = () => {
 
         <motion.div
           className="absolute pointer-events-none"
-          style={{ top: '20%', right: '15%' }}
+          style={{
+            top: '20%',
+            right: '15%',
+            opacity: hoverActive ? 0.7 : 0.4,
+          }}
           animate={{
-            scale: hoverScaleActive ? [1, 1.2, 1] : [1, 1.05, 1],
-            opacity: hoverActive ? [0.6, 0.9, 0.6] : [0.3, 0.5, 0.3],
+            scale: hoverScaleActive ? [1, 1.15, 1] : [1, 1.05, 1],
           }}
           transition={{ repeat: Infinity, duration: 6 }}
         >

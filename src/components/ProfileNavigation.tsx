@@ -108,24 +108,11 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate, onHov
       aria-label="Main navigation"
     >
       {/* Profile Picture Container */}
-      <motion.div
+      <div
         className="relative w-48 h-48 sm:w-60 sm:h-60 md:w-80 md:h-80 rounded-full overflow-visible flex items-center justify-center cursor-pointer"
-        onMouseEnter={() => {}}
-        onMouseLeave={() => {}}
-        animate={isVisible ? {
-          scale: 1,
-          opacity: 1
-        } : {
-          scale: 1,
-          opacity: 1
-        }}
-        transition={{
-          duration: 0.2,
-          ease: 'easeOut'
-        }}
       >
         {/* Profile Picture with Particle Effect */}
-        <motion.div
+        <div
           className="w-full h-full rounded-full relative"
           style={{
             overflow: 'visible'
@@ -147,76 +134,46 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate, onHov
             />
           </div>
 
-          {/* Glowing energy rings */}
+          {/* Glowing energy rings - static, no animation to prevent flickering */}
           {isClient && [1, 2, 3].map((ring) => (
-            <motion.div
+            <div
               key={ring}
               className="absolute inset-0 rounded-full"
               style={{
                 border: `2px solid rgba(99, 102, 241, ${0.3 / ring})`,
                 boxShadow: `0 0 ${20 * ring}px rgba(99, 102, 241, ${0.4 / ring})`,
-              }}
-              animate={{
-                scale: [1, 1 + ring * 0.15, 1],
-                opacity: [0.4, 0.7, 0.4],
-              }}
-              transition={{
-                duration: 3 + ring,
-                repeat: Infinity,
-                delay: ring * 0.4,
-                ease: "easeInOut"
+                opacity: 0.5,
               }}
             />
           ))}
 
-          {/* Rotating shimmer overlay */}
-          <motion.div
+          {/* Shimmer overlay - removed rotation to prevent flickering */}
+          <div
             className="absolute inset-0 rounded-full"
             style={{
-              background: 'linear-gradient(135deg, transparent 20%, rgba(99, 102, 241, 0.2) 50%, transparent 80%)',
-            }}
-            animate={{
-              rotate: 360,
-              opacity: [0.5, 0.8, 0.5],
-            }}
-            transition={{
-              rotate: {
-                duration: 10,
-                repeat: Infinity,
-                ease: "linear"
-              },
-              opacity: {
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }
+              background: 'linear-gradient(135deg, transparent 20%, rgba(99, 102, 241, 0.15) 50%, transparent 80%)',
+              opacity: 0.6,
             }}
           />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
 
 
-      {/* Subtle eclipse ring between profile and flames */}
+      {/* Subtle eclipse ring between profile and flames - static visibility */}
       {isVisible && (
-        <motion.div
+        <div
           className="absolute pointer-events-none"
           style={{
             left: '50%',
             top: '50%',
-            width: isMobile ? '320px' : '420px', // slightly larger than profile, smaller than flames
+            width: isMobile ? '320px' : '420px',
             height: isMobile ? '320px' : '420px',
             transform: 'translate(-50%, -50%)',
             borderRadius: '50%',
             zIndex: -1,
             background: 'radial-gradient(circle, transparent 70%, rgba(0,0,0,0.18) 80%, transparent 95%)',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ 
-            duration: 0.2,
-            ease: 'easeOut' 
+            opacity: 1,
           }}
         />
       )}
@@ -303,21 +260,13 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate, onHov
               }}
               aria-label={`Navigate to ${link.label} page`}
             >
-              {/* Glow orb behind text */}
-              <motion.div
+              {/* Glow orb behind text - static, no animation */}
+              <div
                 className="absolute inset-0"
                 style={{
-                  background: `radial-gradient(circle, ${fireAnimations[flameColor as keyof typeof fireAnimations].textShadow.split(' ')[3]?.replace(/,.*/, '')}60, transparent 70%)`,
-                  filter: 'blur(10px)',
-                }}
-                animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [0.4, 0.7, 0.4],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
+                  background: `radial-gradient(circle, ${fireAnimations[flameColor as keyof typeof fireAnimations].textShadow.split(' ')[3]?.replace(/,.*/, '')}40, transparent 70%)`,
+                  filter: 'blur(12px)',
+                  opacity: 0.6,
                 }}
               />
 
@@ -329,26 +278,15 @@ const ProfileNavigation: React.FC<ProfileNavigationProps> = ({ onNavigate, onHov
                   transition: { duration: 0.2 }
                 }}
               >
-                <motion.div
+                <div
                   className={`text-white text-base md:text-xl lg:text-2xl font-bold whitespace-nowrap cursor-pointer ${colorClasses[flameColor as keyof typeof colorClasses]}`}
                   style={{
                     ...fireAnimations[flameColor as keyof typeof fireAnimations],
-                    filter: 'drop-shadow(0 0 8px currentColor)',
-                  }}
-                  animate={{
-                    scale: [1, 1.08, 1],
-                    opacity: [0.85, 1, 0.85],
-                    y: [0, -2, 0],
-                  }}
-                  transition={{
-                    duration: 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut"
                   }}
                   aria-hidden="true"
                 >
                   {link.label}
-                </motion.div>
+                </div>
               </motion.div>
             </motion.div>
           );

@@ -70,21 +70,13 @@ const Contact = () => {
               transition={{ duration: 0.8, delay: idx * 0.1 }}
             />
 
-            {/* Glowing dot on the vertical line */}
-            <motion.div
+            {/* Glowing dot on the vertical line - static to prevent flickering */}
+            <div
               className="absolute left-[-28px] md:left-[-44px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
               style={{
                 backgroundColor: link.color,
-                boxShadow: `0 0 15px ${link.color}, 0 0 30px ${link.color}80`
-              }}
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.7, 1, 0.7]
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut"
+                boxShadow: `0 0 15px ${link.color}, 0 0 30px ${link.color}80`,
+                opacity: 0.85,
               }}
             />
 

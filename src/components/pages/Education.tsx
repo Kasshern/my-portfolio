@@ -83,21 +83,13 @@ const Education = () => {
               transition={{ duration: 0.8, delay: index * 0.2 }}
             />
 
-            {/* Glowing dot at the top of the vertical line */}
-            <motion.div
+            {/* Glowing dot at the top of the vertical line - static to prevent flickering */}
+            <div
               className="absolute left-[-4px] top-12 w-2 h-2 rounded-full"
               style={{
                 backgroundColor: edu.color,
-                boxShadow: `0 0 15px ${edu.color}, 0 0 30px ${edu.color}80`
-              }}
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.7, 1, 0.7]
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut"
+                boxShadow: `0 0 15px ${edu.color}, 0 0 30px ${edu.color}80`,
+                opacity: 0.85,
               }}
             />
 
@@ -112,20 +104,12 @@ const Education = () => {
                   >
                     {edu.school}
                   </motion.h3>
-                  <motion.div
+                  <div
                     className="ml-4 w-3 h-3 rounded-full flex-shrink-0 mt-2"
                     style={{
                       backgroundColor: edu.color,
-                      boxShadow: `0 0 20px ${edu.color}`
-                    }}
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.8, 1, 0.8]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
+                      boxShadow: `0 0 20px ${edu.color}`,
+                      opacity: 0.9,
                     }}
                   />
                 </div>

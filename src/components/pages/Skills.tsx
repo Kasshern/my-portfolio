@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { staggerContainerVariants, fadeInUpVariants } from '@/lib/animations';
 
 const Skills = () => {
@@ -314,14 +315,15 @@ const Skills = () => {
                 >
                   {cert.embedUrl && (
                     <motion.div
-                      className="mb-4 rounded-lg overflow-hidden"
+                      className="mb-4 rounded-lg overflow-hidden relative w-full aspect-[4/3]"
                       variants={fadeInUpVariants}
                     >
-                      <img
+                      <Image
                         src={cert.embedUrl}
                         alt={`${cert.title} Certificate`}
-                        className="w-full h-auto"
-                        loading="lazy"
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </motion.div>
                   )}

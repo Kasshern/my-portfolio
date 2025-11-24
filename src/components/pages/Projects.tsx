@@ -105,21 +105,13 @@ const Projects = () => {
               transition={{ duration: 0.8, delay: index * 0.1 }}
             />
 
-            {/* Glowing dot at the top of the vertical line */}
-            <motion.div
+            {/* Glowing dot at the top of the vertical line - static to prevent flickering */}
+            <div
               className="absolute left-[-4px] top-[200px] w-2 h-2 rounded-full"
               style={{
                 backgroundColor: project.color,
-                boxShadow: `0 0 15px ${project.color}, 0 0 30px ${project.color}80`
-              }}
-              animate={{
-                scale: [1, 1.3, 1],
-                opacity: [0.7, 1, 0.7]
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut"
+                boxShadow: `0 0 15px ${project.color}, 0 0 30px ${project.color}80`,
+                opacity: 0.85,
               }}
             />
             {/* Project image */}
